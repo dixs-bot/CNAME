@@ -33,6 +33,7 @@
     .card img{width:100%;height:150px;object-fit:cover;border-radius:8px}
     .card h3{margin:8px 0 4px;font-size:1.05rem;color:var(--primary)}
     .price{font-weight:600;margin-bottom:8px}
+    .desc{font-size:14px;color:#555;margin:4px 0 6px;}
     .card button{background:var(--primary);color:#fff;border:none;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:600}
     .card button:hover{background:#e64a19}
 
@@ -83,7 +84,6 @@
 
 <header>
   <div class="brand">
-    <!-- tambahkan logo Anda di folder images/ lalu ganti src jika perlu -->
     <img class="logo" src="images/placeholder_menu.jpg" alt="Logo Cilok">
     <div>
       <h1>Cilok Goang Teh Desi</h1>
@@ -93,19 +93,15 @@
 </header>
 
 <div class="container">
-  <!-- Menu -->
   <section>
     <h2 style="color:var(--primary);text-align:center;margin-top:18px">Menu Unggulan</h2>
-    <div class="menu" id="menuList">
-      <!-- Item akan di-render lewat JS -->
-    </div>
+    <div class="menu" id="menuList"></div>
   </section>
 
   <div class="download">
     <a class="btn-download" href="menu.pdf" download>📥 Download Menu (PDF)</a>
   </div>
 
-  <!-- Platform links -->
   <section style="text-align:center">
     <h2 style="color:var(--primary)">Pesan di Platform Favorit</h2>
     <div class="platforms">
@@ -115,7 +111,6 @@
     </div>
   </section>
 
-  <!-- QRIS & Bank -->
   <section class="qris">
     <h2 style="color:var(--primary)">Metode Pembayaran</h2>
     <p>Scan QRIS atau transfer melalui bank</p>
@@ -127,13 +122,11 @@
   </section>
 </div>
 
-<!-- Cart floating button -->
 <div class="cart-float" id="cartBtn" title="Lihat Keranjang">
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M6 6h15l-1.68 8.39A2 2 0 0 1 17.36 16H8.64a2 2 0 0 1-1.96-1.61L5 2H2" stroke="#333" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
   <div class="badge" id="cartCount">0</div>
 </div>
 
-<!-- Cart panel -->
 <div class="cart-panel" id="cartPanel" aria-hidden="true">
   <h3>Keranjang Anda</h3>
   <div id="cartItems"></div>
@@ -144,48 +137,22 @@
   </div>
 </div>
 
-<!-- Floating WhatsApp contact -->
 <a class="whatsapp-float" href="https://wa.me/6281212629516" target="_blank" title="Chat Teh Desi">
   <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA" style="width:34px;height:34px">
 </a>
 
 <script>
-/* ===== DATA MENU (ubah/expand sesuai kebutuhan) ===== */
 const MENU = [
- { id: 'm1', name: 'Cilok Goang Tulang', price: 17.000, img:'images/placeholder_menu.jpg' },
-  { id: 'm2', name: 'Cilok Goang Tofu Sehah', price: 16000, img:'images/placeholder_menu.jpg' },
-  { id: 'm3', name: 'Cilok Granat', price: 14000, img:'images/placeholder_menu.jpg' },
-  { id: 'm4', name: 'Cilok Kuah Sambal Ijo', price: 14000, img:'images/placeholder_menu.jpg' },
-  { id: 'm5', name: 'Cilok Goang Ceker Sambal Ijo', price: 17000, img:'images/placeholder_menu.jpg' },
-  { id: 'm6', name: 'Cilok Kuah Boncabe', price: 16000, img:'images/placeholder_menu.jpg' },
-  { id: 'm7', name: 'Mie Cilok Goang', price: 16000, img:'images/placeholder_menu.jpg' },
-  { id: 'm8', name: 'Cilok Goang Ceker Pedas', price: 18000, img:'images/placeholder_menu.jpg' },
-  { id: 'm9', name: 'Cilok Kuah Endolita', price: 14000, img:'images/placeholder_menu.jpg' },
-  { id: 'm10', name: 'Seblak Kerupuk Endolita', price: 16000, img:'images/placeholder_menu.jpg' },
-  { id: 'm11', name: 'Seblak Mie Kuah Telur Pedas', price: 14000, img:'images/placeholder_menu.jpg' },
-  { id: 'm12', name: 'Seblok Endolita', price: 13000, img:'images/placeholder_menu.jpg' }, tolong tempelkan deskripsi di sini nanti saya isi sendiri 
-  { id: 'm13', name: 'Seblok Ceker Endolita', price: 17000, img:'images/placeholder_menu.jpg' },
-  { id: 'm14', name: 'Seblak Kerupuk Rafaell', price: 17000, img:'images/placeholder_menu.jpg' },
-  { id: 'm15', name: 'Seblak 4 Varian', price: 17000, img:'images/placeholder_menu.jpg' },
-  { id: 'm16', name: 'Seblak 5 Varian', price: 19000, img:'images/placeholder_menu.jpg' },
-  { id: 'm17', name: 'seblak 6 Varian', price: 22000, img:'images/placeholder_menu.jpg' },
-  { id: 'm4', name: 'Paket Hemat 1 (2 porsi)', price: 12000, img:'images/placeholder_menu.jpg' },
-  { id: 'm4', name: 'Paket Hemat 1 (2 porsi)', price: 12000, img:'images/placeholder_menu.jpg' },
-  // tambahkan item lain jika perlu
+  { id: 'm1', name: 'Cilok Original', price: 5000, img:'images/placeholder_menu.jpg', desc: 'Cilok kenyal dengan bumbu sederhana khas Bandung.' },
+  { id: 'm2', name: 'Cilok Goang', price: 6000, img:'images/placeholder_menu.jpg', desc: 'Cilok kuah pedas khas Garut, cocok untuk pecinta pedas.' },
+  { id: 'm3', name: 'Cilok Bumbu Kacang', price: 7000, img:'images/placeholder_menu.jpg', desc: 'Cilok dengan siraman bumbu kacang gurih dan pedas manis.' },
+  { id: 'm4', name: 'Paket Hemat 1 (2 porsi)', price: 12000, img:'images/placeholder_menu.jpg', desc: 'Paket hemat isi 2 porsi cilok favorit pilihan.' },
 ];
 
-/* ===== STATE KERANJANG (disimpan di localStorage supaya bertahan reload) ===== */
 let cart = JSON.parse(localStorage.getItem('cg_cart')||'[]');
-
-/* ===== HELPERS ===== */
 const rupiah = n => 'Rp' + n.toLocaleString('id-ID');
+function saveCart(){ localStorage.setItem('cg_cart', JSON.stringify(cart)); renderCartCount(); }
 
-function saveCart(){
-  localStorage.setItem('cg_cart', JSON.stringify(cart));
-  renderCartCount();
-}
-
-/* ===== RENDER MENU ===== */
 const menuList = document.getElementById('menuList');
 function renderMenu(){
   menuList.innerHTML = '';
@@ -195,6 +162,7 @@ function renderMenu(){
     div.innerHTML = `
       <img src="${item.img}" alt="${item.name}">
       <h3>${item.name}</h3>
+      <p class="desc">${item.desc || 'Deskripsi menu belum ditambahkan.'}</p>
       <div class="price">${rupiah(item.price)}</div>
       <button onclick="addToCart('${item.id}')">Tambah ke Keranjang 🛒</button>
     `;
@@ -203,55 +171,35 @@ function renderMenu(){
 }
 renderMenu();
 
-/* ===== ADD TO CART ===== */
+// === Keranjang ===
 function addToCart(id){
   const menuItem = MENU.find(m => m.id === id);
   if(!menuItem) return;
   const found = cart.find(c => c.id === id);
   if(found) found.qty++;
   else cart.push({ id:menuItem.id, name:menuItem.name, price:menuItem.price, qty:1 });
-  saveCart();
-  renderCartPanel();
-  showCartPanel(); // buka panel supaya user lihat
+  saveCart(); renderCartPanel(); showCartPanel();
 }
-
-/* ===== RENDER CART COUNT ===== */
 function renderCartCount(){
   const count = cart.reduce((s,i)=>s+i.qty,0);
   document.getElementById('cartCount').textContent = count;
 }
 renderCartCount();
-
-/* ===== CART PANEL UI ===== */
 const cartBtn = document.getElementById('cartBtn');
 const cartPanel = document.getElementById('cartPanel');
 const cartItemsEl = document.getElementById('cartItems');
 const cartTotalEl = document.getElementById('cartTotal');
-
 cartBtn.addEventListener('click', ()=> {
   if(cartPanel.style.display === 'block') cartPanel.style.display = 'none';
   else showCartPanel();
 });
-
-function showCartPanel(){
-  renderCartPanel();
-  cartPanel.style.display = 'block';
-  cartPanel.setAttribute('aria-hidden','false');
-}
-
+function showCartPanel(){ renderCartPanel(); cartPanel.style.display = 'block'; cartPanel.setAttribute('aria-hidden','false'); }
 function renderCartPanel(){
   cartItemsEl.innerHTML = '';
-  if(cart.length===0){
-    cartItemsEl.innerHTML = '<p style="padding:8px;color:#666">Keranjang masih kosong.</p>';
-    cartTotalEl.textContent = 'Total: Rp0';
-    renderCartCount();
-    saveCart();
-    return;
-  }
+  if(cart.length===0){ cartItemsEl.innerHTML = '<p style="padding:8px;color:#666">Keranjang masih kosong.</p>'; cartTotalEl.textContent = 'Total: Rp0'; renderCartCount(); saveCart(); return;}
   let total = 0;
   cart.forEach((it, idx)=>{
-    const sub = it.price * it.qty;
-    total += sub;
+    const sub = it.price * it.qty; total += sub;
     const node = document.createElement('div');
     node.className = 'cart-item';
     node.innerHTML = `
@@ -264,58 +212,26 @@ function renderCartPanel(){
           <button class="small" onclick="changeQty(${idx}, 1)">+</button>
           <button class="small" style="margin-left:8px;background:#ff5252;color:#fff" onclick="removeItem(${idx})">Hapus</button>
         </div>
-      </div>
-    `;
+      </div>`;
     cartItemsEl.appendChild(node);
   });
   cartTotalEl.textContent = `Total: ${rupiah(total)}`;
-  renderCartCount();
-  saveCart();
+  renderCartCount(); saveCart();
 }
-
-/* ===== UBAH JUMLAH / HAPUS ===== */
-function changeQty(index, delta){
-  cart[index].qty += delta;
-  if(cart[index].qty <= 0) cart.splice(index,1);
-  renderCartPanel();
-}
-
-function removeItem(index){
-  cart.splice(index,1);
-  renderCartPanel();
-}
-
-/* ===== CLEAR CART ===== */
-document.getElementById('clearCart').addEventListener('click', function(){
-  if(confirm('Kosongkan keranjang?')){ cart = []; saveCart(); renderCartPanel(); cartPanel.style.display='none'; }
-});
-
-/* ===== CHECKOUT VIA WHATSAPP (Opsi A: langsung WA) ===== */
-document.getElementById('checkoutBtn').addEventListener('click', function(){
-  if(cart.length === 0){ alert('Keranjang kosong — tambahkan menu dulu.'); return; }
-  let pesan = 'Halo Teh Desi%0A%0ASaya mau pesan:%0A';
-  let total = 0;
-  cart.forEach(it=>{
-    const sub = it.price * it.qty;
-    total += sub;
-    pesan += `- ${it.name} x${it.qty} = ${rupiah(it.price * it.qty)}%0A`;
-  });
-  pesan += `%0ATotal: ${rupiah(total)}%0A%0AAlamat / catatan: `;
-  // buka wa
-  const wa = 'https://wa.me/6281212629516?text=' + encodeURIComponent(decodeURIComponent(pesan));
-  // Note: some WA clients prefer pre-encoded text; using encodeURIComponent on already %-encoded parts
-  window.open(wa, '_blank');
-
-  // kosongkan keranjang setelah checkout
-  cart = [];
-  saveCart();
-  renderCartPanel();
-  cartPanel.style.display = 'none';
+function changeQty(index, delta){ cart[index].qty += delta; if(cart[index].qty <= 0) cart.splice(index,1); renderCartPanel(); }
+function removeItem(index){ cart.splice(index,1); renderCartPanel(); }
+document.getElementById('clearCart').addEventListener('click', ()=>{ if(confirm('Kosongkan keranjang?')){ cart=[]; saveCart(); renderCartPanel(); cartPanel.style.display='none'; }});
+document.getElementById('checkoutBtn').addEventListener('click', ()=>{
+  if(cart.length===0){ alert('Keranjang kosong — tambahkan menu dulu.'); return; }
+  let pesan='Halo Teh Desi%0A%0ASaya mau pesan:%0A'; let total=0;
+  cart.forEach(it=>{ const sub=it.price*it.qty; total+=sub; pesan+=`- ${it.name} x${it.qty} = ${rupiah(sub)}%0A`;});
+  pesan+=`%0ATotal: ${rupiah(total)}%0A%0AAlamat / catatan: `;
+  const wa='https://wa.me/6281212629516?text='+encodeURIComponent(decodeURIComponent(pesan));
+  window.open(wa,'_blank');
+  cart=[]; saveCart(); renderCartPanel(); cartPanel.style.display='none';
   alert('Pesanan dibuka di WhatsApp. Silakan kirim pesanan melalui chat.');
 });
-
-/* ===== Inisialisasi render (panggil saat load) ===== */
 renderCartPanel();
 </script>
 </body>
-</html> 
+</html>
