@@ -1,36 +1,25 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
- <header>
-  <div style="display: flex; align-items: center; justify-content: center; gap: 15px;">
-    <img src="logo-cilok.png" alt="Logo Cilok Goang" 
-         style="height: 70px; width: 70px; border-radius: 50%; box-shadow: 0 2px 6px rgba(0,0,0,0.2);">
-    <div>
-      <h1 style="margin: 0; font-size: 2em;">Cilok Goang Teh Desi</h1>
-      <p style="margin: 5px 0;">Rasa Juara, Pedasnya Bikin Nagih!</p>
-    </div>
-  </div>
-</header>
-
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cilok Goang Teh Desi</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
     body {
       font-family: 'Poppins', sans-serif;
       background-color: #fff8f0;
       margin: 0;
+      padding: 0;
       color: #333;
     }
     header {
-      background: linear-gradient(135deg, #ff7043, #ff5722);
+      background-color: #ff5722;
       color: white;
       text-align: center;
-      padding: 30px 10px;
+      padding: 20px;
     }
-    h1 { margin: 0; font-size: 2em; }
-    p { margin: 5px 0; }
+    h1 { margin: 0; }
+
     .menu {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -43,12 +32,16 @@
       box-shadow: 0 3px 6px rgba(0,0,0,0.1);
       padding: 15px;
       text-align: center;
-      transition: 0.3s;
     }
-    .menu-item:hover { transform: translateY(-5px); box-shadow: 0 5px 12px rgba(0,0,0,0.15); }
-    .menu-item img { width: 100%; border-radius: 10px; }
+    .menu-item img {
+      width: 100%;
+      border-radius: 10px;
+    }
 
-    .download { text-align: center; margin: 20px; }
+    .download {
+      text-align: center;
+      margin: 20px;
+    }
     .download a {
       background-color: #ff5722;
       color: white;
@@ -57,94 +50,82 @@
       text-decoration: none;
       font-weight: bold;
     }
+    .download a:hover { background-color: #e64a19; }
 
-    .order-platform { text-align: center; margin: 40px 0; }
-    .order-platform h2 { color: #ff5722; }
+    .order-platform {
+      text-align: center;
+      margin: 40px 0;
+    }
+    .order-platform h2 {
+      color: #ff5722;
+    }
     .platform-links {
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
       gap: 20px;
+      margin-top: 15px;
     }
     .platform-links img {
       width: 150px;
+      height: auto;
       border-radius: 10px;
       box-shadow: 0 3px 6px rgba(0,0,0,0.2);
-      transition: 0.3s;
+      transition: transform 0.3s, box-shadow 0.3s;
       cursor: pointer;
     }
     .platform-links img:hover {
-      transform: scale(1.07);
-      box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+      transform: scale(1.05);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     }
 
-    .qris {
+    .qris, .rating, .franchise, .catering {
       margin: 30px auto;
       max-width: 600px;
       background: #fff;
       border-radius: 10px;
       box-shadow: 0 3px 6px rgba(0,0,0,0.1);
       padding: 20px;
-      text-align: center;
     }
-    .qris img {
-      width: 200px;
-      border-radius: 10px;
+    .rating h2, .franchise h2, .qris h2, .catering h2 {
+      color: #ff5722;
     }
 
-    .bank-section { text-align: center; margin-top: 25px; }
-    .bank-logos {
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      flex-wrap: wrap;
+    .paket-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 15px;
+      margin: 15px 0;
     }
-    .bank-logos img {
-      width: 120px;
+    .paket {
+      background: #fff8f2;
+      border: 1px solid #ffccbc;
       border-radius: 10px;
-      background: #f9f9f9;
-      padding: 10px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      transition: transform 0.3s;
-    }
-    .bank-logos img:hover { transform: scale(1.1); }
-
-    #cek-ongkir {
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-      padding: 20px;
-      margin: 40px auto;
-      max-width: 500px;
       text-align: center;
-    }
-    #cek-ongkir input {
-      width: 90%;
       padding: 10px;
-      margin: 5px 0;
-      border: 1px solid #ccc;
-      border-radius: 8px;
     }
-    #cek-ongkir button {
-      background-color: #ff5722;
+    .paket h3 { color: #ff5722; margin-bottom: 5px; }
+    .paket p { font-size: 14px; margin: 5px 0; }
+    .paket button {
+      background: #ff5722;
       color: white;
-      padding: 10px 20px;
       border: none;
-      border-radius: 8px;
+      border-radius: 5px;
+      padding: 8px 15px;
+      margin-top: 5px;
       cursor: pointer;
-      font-weight: bold;
-      margin-top: 10px;
     }
-    #cek-ongkir button:hover { background-color: #e64a19; }
+    .paket button:hover { background: #e64a19; }
 
     footer {
       text-align: center;
       padding: 15px;
-      background: linear-gradient(135deg, #ff5722, #ff7043);
+      background: #ff5722;
       color: white;
-      margin-top: 40px;
+      margin-top: 20px;
     }
 
+    /* Tombol WhatsApp Mengambang */
     .whatsapp-float {
       position: fixed;
       width: 60px;
@@ -158,8 +139,17 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      transition: all 0.3s;
     }
-    .whatsapp-float img { width: 35px; height: 35px; }
+    .whatsapp-float img {
+      width: 35px;
+      height: 35px;
+      filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.2));
+    }
+    .whatsapp-float:hover {
+      transform: scale(1.1);
+      background-color: #20c357;
+    }
   </style>
 </head>
 <body>
@@ -213,25 +203,8 @@
 
 <section class="qris">
   <h2>QRIS Pembayaran</h2>
-  <img src="qris.png" alt="QRIS Pembayaran">
-
-  <div class="bank-section">
-    <h3>Metode Pembayaran Lainnya</h3>
-    <div class="bank-logos">
-      <img src="logo-bca.png" alt="BCA">
-      <img src="logo-bni.png" alt="BNI">
-    </div>
-  </div>
-</section>
-
-<!-- Form Cek Ongkir -->
-<section id="cek-ongkir">
-  <h2>📦 Cek Ongkir Cilok Instan / Kiloan</h2>
-  <p>Pengiriman seluruh Pulau Jawa (JNE, JNT, SiCepat)</p>
-  <input type="text" id="kota" placeholder="Kota tujuan (contoh: Bandung)">
-  <input type="number" id="berat" placeholder="Berat (kg)" min="1">
-  <button onclick="hitungOngkir()">Hitung Ongkir</button>
-  <div id="hasilOngkir" style="margin-top:10px; font-weight:bold;"></div>
+  <p>Pembayaran bisa dilakukan lewat QRIS berikut:</p>
+  <img src="qris.png" alt="QRIS Pembayaran" style="width:200px;border-radius:10px;">
 </section>
 
 <footer>
@@ -239,25 +212,10 @@
   ⏰ 08:00–24:00 Setiap Hari | 📞 0812-1262-9516
 </footer>
 
-<a class="whatsapp-float" href="https://wa.me/6281212629516?text=Halo%20Teh%20Desi,%20saya%20mau%20pesan%20Cilok%20Goang%20nih!" target="_blank">
+<!-- Tombol WhatsApp Mengambang -->
+<a class="whatsapp-float" href="https://wa.me/6281212629516?text=Halo%20Teh%20Desi,%20saya%20mau%20pesan%20Cilok%20Goang%20nih!" target="_blank" title="Chat dengan Teh Desi">
   <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
 </a>
-
-<script>
-function hitungOngkir() {
-  const kota = document.getElementById("kota").value.trim();
-  const berat = parseFloat(document.getElementById("berat").value);
-  const tarifPer5kg = 12000;
-  if (!kota || !berat || berat <= 0) {
-    document.getElementById("hasilOngkir").innerHTML =
-      "<span style='color:red;'>Harap isi kota dan berat dengan benar.</span>";
-    return;
-  }
-  const total = Math.ceil(berat / 5) * tarifPer5kg;
-  document.getElementById("hasilOngkir").innerHTML =
-    `Ongkir ke <span style='color:#ff5722;'>${kota}</span> untuk <b>${berat} kg</b> adalah <b>Rp ${total.toLocaleString('id-ID')}</b>`;
-}
-</script>
 
 </body>
 </html>
