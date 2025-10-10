@@ -1,302 +1,306 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cilok Goang Teh Desi</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Cilok Goang Teh Desi — Pesan Online</title>
   <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background-color: #fff8f0;
-      margin: 0;
-      padding: 0;
-      color: #333;
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+    :root{
+      --primary:#ff5722;
+      --accent:#25d366;
+      --bg:#fff8f0;
     }
-    header {
-      background-color: #ff5722;
-      color: white;
-      text-align: center;
-      padding: 20px;
+    *{box-sizing:border-box}
+    body{
+      font-family:'Poppins',sans-serif;
+      margin:0;background:var(--bg);color:#222;
     }
-    h1 { margin: 0; }
+    header{
+      background:var(--primary);color:#fff;padding:18px 12px;text-align:center;
+    }
+    header .brand {display:flex;gap:12px;align-items:center;justify-content:center}
+    header img.logo{height:56px;width:56px;border-radius:8px;object-fit:cover;box-shadow:0 2px 6px rgba(0,0,0,0.2)}
+    header h1{margin:0;font-size:1.4rem}
+    header p{margin:6px 0 0;font-size:0.95rem;opacity:0.95}
 
-    .menu {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      padding: 20px;
-    }
-    .menu-item {
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-      padding: 15px;
-      text-align: center;
-    }
-    .menu-item img {
-      width: 100%;
-      border-radius: 10px;
-    }
+    .container{max-width:1100px;margin:18px auto;padding:0 16px}
 
-    .download {
-      text-align: center;
-      margin: 20px;
-    }
-    .download a {
-      background-color: #ff5722;
-      color: white;
-      padding: 12px 25px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    .download a:hover { background-color: #e64a19; }
+    /* menu grid */
+    .menu{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+    .card{background:#fff;border-radius:10px;padding:12px;box-shadow:0 4px 10px rgba(0,0,0,0.06);text-align:center;transition:transform .18s}
+    .card:hover{transform:translateY(-6px)}
+    .card img{width:100%;height:150px;object-fit:cover;border-radius:8px}
+    .card h3{margin:8px 0 4px;font-size:1.05rem;color:var(--primary)}
+    .price{font-weight:600;margin-bottom:8px}
+    .card button{background:var(--primary);color:#fff;border:none;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:600}
+    .card button:hover{background:#e64a19}
 
-    .order-platform {
-      text-align: center;
-      margin: 40px 0;
-    }
-    .order-platform h2 {
-      color: #ff5722;
-    }
-    .platform-links {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 20px;
-      margin-top: 15px;
-    }
-    .platform-links img {
-      width: 150px;
-      height: auto;
-      border-radius: 10px;
-      box-shadow: 0 3px 6px rgba(0,0,0,0.2);
-      transition: transform 0.3s, box-shadow 0.3s;
-      cursor: pointer;
-    }
-    .platform-links img:hover {
-      transform: scale(1.05);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    }
+    /* download */
+    .download{margin:18px 0;text-align:center}
+    .btn-download{background:var(--primary);color:#fff;padding:10px 18px;border-radius:8px;text-decoration:none;font-weight:600;display:inline-block}
 
-    .qris, .rating, .franchise, .catering {
-      margin: 30px auto;
-      max-width: 600px;
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-      padding: 20px;
-    }
-    .rating h2, .franchise h2, .qris h2, .catering h2 {
-      color: #ff5722;
-    }
+    /* platform logos */
+    .platforms{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin:18px 0}
+    .platforms img{width:150px;border-radius:10px;box-shadow:0 3px 8px rgba(0,0,0,0.12);cursor:pointer}
 
-    .paket-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 15px;
-      margin: 15px 0;
-    }
-    .paket {
-      background: #fff8f2;
-      border: 1px solid #ffccbc;
-      border-radius: 10px;
-      text-align: center;
-      padding: 10px;
-    }
-    .paket h3 { color: #ff5722; margin-bottom: 5px; }
-    .paket p { font-size: 14px; margin: 5px 0; }
-    .paket button {
-      background: #ff5722;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      padding: 8px 15px;
-      margin-top: 5px;
-      cursor: pointer;
-    }
-    .paket button:hover { background: #e64a19; }
+    /* QRIS & bank */
+    .qris{max-width:700px;margin:20px auto;text-align:center}
+    .qris img{width:220px;border-radius:10px}
+    .bank-logos{display:flex;gap:18px;justify-content:center;margin-top:12px}
+    .bank-logos img{width:120px;border-radius:8px;background:#fafafa;padding:8px}
 
-    footer {
-      text-align: center;
-      padding: 15px;
-      background: #ff5722;
-      color: white;
-      margin-top: 20px;
+    /* cart floating */
+    .cart-float{
+      position:fixed;right:18px;top:18px;width:56px;height:56px;background:#fff;border-radius:12px;box-shadow:0 6px 16px rgba(0,0,0,0.18);
+      display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:999;
     }
+    .cart-float .badge{position:absolute;top:-6px;right:-6px;background:var(--primary);color:#fff;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px}
 
-    /* Tombol WhatsApp Mengambang */
-    .whatsapp-float {
-      position: fixed;
-      width: 60px;
-      height: 60px;
-      bottom: 20px;
-      right: 20px;
-      background-color: #25d366;
-      border-radius: 50%;
-      box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s;
+    /* cart panel/modal */
+    .cart-panel{
+      position:fixed;right:18px;top:86px;width:330px;max-height:70vh;background:#fff;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,0.2);overflow:auto;padding:14px;z-index:999;display:none;
     }
-    .whatsapp-float img {
-      width: 35px;
-      height: 35px;
-      filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.2));
-    }
-    .whatsapp-float:hover {
-      transform: scale(1.1);
-      background-color: #20c357;
+    .cart-panel h3{margin:0 0 8px;color:var(--primary)}
+    .cart-item{display:flex;gap:8px;align-items:center;padding:8px;border-bottom:1px dashed #eee}
+    .cart-item:last-child{border-bottom:none}
+    .cart-item .name{flex:1;font-weight:600}
+    .cart-item .qty{display:flex;gap:6px;align-items:center}
+    .cart-item button.small{background:#eee;border:none;padding:6px 8px;border-radius:6px;cursor:pointer}
+    .cart-summary{margin-top:12px;text-align:right;font-weight:700}
+    .cart-actions{display:flex;gap:8px;margin-top:10px}
+    .cart-actions button{flex:1;padding:10px;border-radius:8px;border:none;cursor:pointer;font-weight:700}
+    .btn-checkout{background:var(--accent);color:#fff}
+    .btn-clear{background:#f2f2f2}
+
+    /* responsive */
+    @media (max-width:520px){
+      .cart-panel{right:8px;left:8px;width:auto;top:auto;bottom:16px;max-height:60vh}
     }
   </style>
 </head>
 <body>
 
 <header>
-  <h1>Cilok Goang Teh Desi</h1>
-  <p>Rasa Juara, Pedasnya Bikin Nagih!</p>
+  <div class="brand">
+    <!-- tambahkan logo Anda di folder images/ lalu ganti src jika perlu -->
+    <img class="logo" src="images/placeholder_menu.jpg" alt="Logo Cilok">
+    <div>
+      <h1>Cilok Goang Teh Desi</h1>
+      <p>Rasa Juara, Pedasnya Bikin Nagih!</p>
+    </div>
+  </div>
 </header>
 
-<section class="menu">
-  <div class="menu-item">
-    <img src="cilok.jpg" alt="Cilok Goang">
-    <h3>Cilok Original</h3>
-    <p>Rp5.000/porsi</p>
-  </div>
-  <div class="menu-item">
-    <img src="cilok.jpg" alt="Cilok Goang">
-    <h3>Cilok Goang</h3>
-    <p>Rp6.000/porsi</p>
-  </div>
-  <div class="menu-item">
-    <img src="cilok.jpg" alt="Cilok Bumbu Kacang">
-    <h3>Cilok Bumbu Kacang</h3>
-    <p>Rp7.000/porsi</p>
-  </div>
-  <div class="menu-item">
-    <img src="cilok.jpg" alt="Paket Hemat 1">
-    <h3>Paket Hemat 1</h3>
-    <p>Rp12.000</p>
-  </div>
-   <div class="menu-item">
-    <img src="cilok.jpg" alt="Paket Hemat 1">
-    <h3>Paket Hemat 1</h3>
-    <p>Rp12.000</p>
-      </div>
-   <div class="menu-item">
-    <img src="cilok.jpg" alt="Paket Hemat 1">
-    <h3>Paket Hemat 1</h3>
-    <p>Rp12.000</p> </div>
-   <div class="menu-item">
-    <img src="cilok.jpg" alt="Paket Hemat 1">
-    <h3>Paket Hemat 1</h3>
-    <p>Rp12.000</p> </div>
-   <div class="menu-item">
-    <img src="cilok.jpg" alt="Paket Hemat 1">
-    <h3>Paket Hemat 1</h3>
-    <p>Rp12.000</p> </div>
-   <div class="menu-item">
-    <img src="cilok.jpg" alt="Paket Hemat 1">
-    <h3>Paket Hemat 1</h3>
-    <p>Rp12.000</p> </div>
-   <div class="menu-item">
-    <img src="cilok.jpg" alt="Paket Hemat 1">
-    <h3>Paket Hemat 1</h3>
-    <p>Rp12.000</p> </div>
-   <div class="menu-item">
-    <img src="cilok.jpg" alt="Paket Hemat 1">
-    <h3>Paket Hemat 1</h3>
-    <p>Rp12.000</p> </div>
-   <div class="menu-item">
-    <img src="cilok.jpg" alt="Paket Hemat 1">
-    <h3>Paket Hemat 1</h3>
-    <p>Rp12.000</p> </div>
-   <div class="menu-item">
-    <img src="cilok.jpg" alt="Paket Hemat 1">
-    <h3>Paket Hemat 1</h3>
-    <p>Rp12.000</p> </div>
-   <div class="menu-item">
-    <img src="cilok.jpg" alt="Paket Hemat 1">
-    <h3>Paket Hemat 1</h3>
-    <p>Rp12.000</p> </div>
-   <div class="menu-item">
-    <img src="cilok.jpg" alt="Paket Hemat 1">
-    <h3>Paket Hemat 1</h3>
-    <p>Rp12.000</p> </div>
-   <div class="menu-item">
-    <img src="cilok.jpg" alt="Paket Hemat 1">
-    <h3>Paket Hemat 1</h3>
-    <p>Rp12.000</p> </div>
-   <div class="menu-item">
-    <img src="cilok.jpg" alt="Paket Hemat 1">
-    <h3>Paket Hemat 1</h3>
-    <p>Rp12.000</p> </div>
-   <div class="menu-item">
-    <img src="cilok.jpg" alt="Paket Hemat 1">
-    <h3>Paket Hemat 1</h3>
-    <p>Rp12.000</p> </div>
-   <div class="menu-item">
-    <img src="cilok.jpg" alt="Paket Hemat 1">
-    <h3>Paket Hemat 1</h3>
-    <p>Rp12.000</p> </div>
-   <div class="menu-item">
-    <img src="cilok.jpg" alt="Paket Hemat 1">
-    <h3>Paket Hemat 1</h3>
-    <p>Rp12.000</p> </div>
-   <div class="menu-item">
-    <img src="cilok.jpg" alt="Paket Hemat 1">
-    <h3>Paket Hemat 1</h3>
-    <p>Rp12.000</p> </div>
-   <div class="menu-item">
-    <img src="cilok.jpg" alt="Paket Hemat 1">
-    <h3>Paket Hemat 1</h3>
-    <p>Rp12.000</p> </div>
-   <div class="menu-item">
-    <img src="cilok.jpg" alt="Paket Hemat 1">
-    <h3>Paket Hemat 1</h3>
-    <p>Rp12.000</p> </div>
-   <div class="menu-item">
-    <img src="cilok.jpg" alt="Paket Hemat 1">
-    <h3>Paket Hemat 1</h3>
-    <p>Rp12.000</p>
-</section>
+<div class="container">
+  <!-- Menu -->
+  <section>
+    <h2 style="color:var(--primary);text-align:center;margin-top:18px">Menu Unggulan</h2>
+    <div class="menu" id="menuList">
+      <!-- Item akan di-render lewat JS -->
+    </div>
+  </section>
 
-<div class="download">
-  <a href="Menu_Cilok_Goang_Teh_Desi.pdf" download>📥 Download Menu (PDF)</a>
+  <div class="download">
+    <a class="btn-download" href="menu.pdf" download>📥 Download Menu (PDF)</a>
+  </div>
+
+  <!-- Platform links -->
+  <section style="text-align:center">
+    <h2 style="color:var(--primary)">Pesan di Platform Favorit</h2>
+    <div class="platforms">
+      <a href="https://gofood.link/u/sample" target="_blank"><img src="images/gofood-logo.jpg" alt="GoFood"></a>
+      <a href="https://food.grab.com/id/id/restaurant/sample" target="_blank"><img src="images/grabfood-logo.jpg" alt="GrabFood"></a>
+      <a href="https://shopee.co.id/universal-link/food/shop/sample" target="_blank"><img src="images/shopeefood-logo.png" alt="ShopeeFood"></a>
+    </div>
+  </section>
+
+  <!-- QRIS & Bank -->
+  <section class="qris">
+    <h2 style="color:var(--primary)">Metode Pembayaran</h2>
+    <p>Scan QRIS atau transfer melalui bank</p>
+    <img src="images/qris-placeholder.png" alt="QRIS">
+    <div class="bank-logos">
+      <img src="images/logo-bca.png" alt="BCA">
+      <img src="images/logo-bni.png" alt="BNI">
+    </div>
+  </section>
 </div>
 
-<section class="order-platform">
-  <h2>Pesan Langsung di Platform Favoritmu</h2>
-  <div class="platform-links">
-    <a href="https://gofood.link/u/sample" target="_blank">
-      <img src="01h56q5q4vx79xbc05p449qz3e.jpg" alt="GoFood">
-    </a>
-    <a href="https://food.grab.com/id/id/restaurant/sample" target="_blank">
-      <img src="maxresdefault.jpg" alt="GrabFood">
-    </a>
-    <a href="https://shopee.co.id/universal-link/food/shop/sample" target="_blank">
-      <img src="63fec147909c7.png" alt="ShopeeFood">
-    </a>
+<!-- Cart floating button -->
+<div class="cart-float" id="cartBtn" title="Lihat Keranjang">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M6 6h15l-1.68 8.39A2 2 0 0 1 17.36 16H8.64a2 2 0 0 1-1.96-1.61L5 2H2" stroke="#333" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <div class="badge" id="cartCount">0</div>
+</div>
+
+<!-- Cart panel -->
+<div class="cart-panel" id="cartPanel" aria-hidden="true">
+  <h3>Keranjang Anda</h3>
+  <div id="cartItems"></div>
+  <div class="cart-summary" id="cartTotal">Total: Rp0</div>
+  <div class="cart-actions">
+    <button class="btn-clear" id="clearCart">Kosongkan</button>
+    <button class="btn-checkout" id="checkoutBtn">Checkout via WhatsApp</button>
   </div>
-</section>
+</div>
 
-<section class="qris">
-  <h2>QRIS Pembayaran</h2>
-  <p>Pembayaran bisa dilakukan lewat QRIS berikut:</p>
-  <img src="qris.png" alt="QRIS Pembayaran" style="width:200px;border-radius:10px;">
-</section>
-
-<footer>
-  📍 Wisma Agung, Jl. KH Usman Dhomiri RT 02/13, Kel. Padasuka, Cimahi Tengah, Kota Cimahi<br>
-  ⏰ 08:00–24:00 Setiap Hari | 📞 0812-1262-9516
-</footer>
-
-<!-- Tombol WhatsApp Mengambang -->
-<a class="whatsapp-float" href="https://wa.me/6281212629516?text=Halo%20Teh%20Desi,%20saya%20mau%20pesan%20Cilok%20Goang%20nih!" target="_blank" title="Chat dengan Teh Desi">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+<!-- Floating WhatsApp contact -->
+<a class="whatsapp-float" href="https://wa.me/6281212629516" target="_blank" title="Chat Teh Desi">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA" style="width:34px;height:34px">
 </a>
 
+<script>
+/* ===== DATA MENU (ubah/expand sesuai kebutuhan) ===== */
+const MENU = [
+  { id: 'm1', name: 'Cilok Original', price: 5000, img:'images/placeholder_menu.jpg' },
+  { id: 'm2', name: 'Cilok Goang', price: 6000, img:'images/placeholder_menu.jpg' },
+  { id: 'm3', name: 'Cilok Bumbu Kacang', price: 7000, img:'images/placeholder_menu.jpg' },
+  { id: 'm4', name: 'Paket Hemat 1 (2 porsi)', price: 12000, img:'images/placeholder_menu.jpg' },
+  // tambahkan item lain jika perlu
+];
+
+/* ===== STATE KERANJANG (disimpan di localStorage supaya bertahan reload) ===== */
+let cart = JSON.parse(localStorage.getItem('cg_cart')||'[]');
+
+/* ===== HELPERS ===== */
+const rupiah = n => 'Rp' + n.toLocaleString('id-ID');
+
+function saveCart(){
+  localStorage.setItem('cg_cart', JSON.stringify(cart));
+  renderCartCount();
+}
+
+/* ===== RENDER MENU ===== */
+const menuList = document.getElementById('menuList');
+function renderMenu(){
+  menuList.innerHTML = '';
+  MENU.forEach(item=>{
+    const div = document.createElement('div');
+    div.className = 'card';
+    div.innerHTML = `
+      <img src="${item.img}" alt="${item.name}">
+      <h3>${item.name}</h3>
+      <div class="price">${rupiah(item.price)}</div>
+      <button onclick="addToCart('${item.id}')">Tambah ke Keranjang 🛒</button>
+    `;
+    menuList.appendChild(div);
+  });
+}
+renderMenu();
+
+/* ===== ADD TO CART ===== */
+function addToCart(id){
+  const menuItem = MENU.find(m => m.id === id);
+  if(!menuItem) return;
+  const found = cart.find(c => c.id === id);
+  if(found) found.qty++;
+  else cart.push({ id:menuItem.id, name:menuItem.name, price:menuItem.price, qty:1 });
+  saveCart();
+  renderCartPanel();
+  showCartPanel(); // buka panel supaya user lihat
+}
+
+/* ===== RENDER CART COUNT ===== */
+function renderCartCount(){
+  const count = cart.reduce((s,i)=>s+i.qty,0);
+  document.getElementById('cartCount').textContent = count;
+}
+renderCartCount();
+
+/* ===== CART PANEL UI ===== */
+const cartBtn = document.getElementById('cartBtn');
+const cartPanel = document.getElementById('cartPanel');
+const cartItemsEl = document.getElementById('cartItems');
+const cartTotalEl = document.getElementById('cartTotal');
+
+cartBtn.addEventListener('click', ()=> {
+  if(cartPanel.style.display === 'block') cartPanel.style.display = 'none';
+  else showCartPanel();
+});
+
+function showCartPanel(){
+  renderCartPanel();
+  cartPanel.style.display = 'block';
+  cartPanel.setAttribute('aria-hidden','false');
+}
+
+function renderCartPanel(){
+  cartItemsEl.innerHTML = '';
+  if(cart.length===0){
+    cartItemsEl.innerHTML = '<p style="padding:8px;color:#666">Keranjang masih kosong.</p>';
+    cartTotalEl.textContent = 'Total: Rp0';
+    renderCartCount();
+    saveCart();
+    return;
+  }
+  let total = 0;
+  cart.forEach((it, idx)=>{
+    const sub = it.price * it.qty;
+    total += sub;
+    const node = document.createElement('div');
+    node.className = 'cart-item';
+    node.innerHTML = `
+      <div class="name">${it.name}</div>
+      <div style="min-width:110px;text-align:right">
+        <div style="font-weight:600">${rupiah(it.price)}</div>
+        <div class="qty" style="margin-top:6px;justify-content:flex-end">
+          <button class="small" onclick="changeQty(${idx}, -1)">-</button>
+          <span style="padding:0 8px">${it.qty}</span>
+          <button class="small" onclick="changeQty(${idx}, 1)">+</button>
+          <button class="small" style="margin-left:8px;background:#ff5252;color:#fff" onclick="removeItem(${idx})">Hapus</button>
+        </div>
+      </div>
+    `;
+    cartItemsEl.appendChild(node);
+  });
+  cartTotalEl.textContent = `Total: ${rupiah(total)}`;
+  renderCartCount();
+  saveCart();
+}
+
+/* ===== UBAH JUMLAH / HAPUS ===== */
+function changeQty(index, delta){
+  cart[index].qty += delta;
+  if(cart[index].qty <= 0) cart.splice(index,1);
+  renderCartPanel();
+}
+
+function removeItem(index){
+  cart.splice(index,1);
+  renderCartPanel();
+}
+
+/* ===== CLEAR CART ===== */
+document.getElementById('clearCart').addEventListener('click', function(){
+  if(confirm('Kosongkan keranjang?')){ cart = []; saveCart(); renderCartPanel(); cartPanel.style.display='none'; }
+});
+
+/* ===== CHECKOUT VIA WHATSAPP (Opsi A: langsung WA) ===== */
+document.getElementById('checkoutBtn').addEventListener('click', function(){
+  if(cart.length === 0){ alert('Keranjang kosong — tambahkan menu dulu.'); return; }
+  let pesan = 'Halo Teh Desi%0A%0ASaya mau pesan:%0A';
+  let total = 0;
+  cart.forEach(it=>{
+    const sub = it.price * it.qty;
+    total += sub;
+    pesan += `- ${it.name} x${it.qty} = ${rupiah(it.price * it.qty)}%0A`;
+  });
+  pesan += `%0ATotal: ${rupiah(total)}%0A%0AAlamat / catatan: `;
+  // buka wa
+  const wa = 'https://wa.me/6281212629516?text=' + encodeURIComponent(decodeURIComponent(pesan));
+  // Note: some WA clients prefer pre-encoded text; using encodeURIComponent on already %-encoded parts
+  window.open(wa, '_blank');
+
+  // kosongkan keranjang setelah checkout
+  cart = [];
+  saveCart();
+  renderCartPanel();
+  cartPanel.style.display = 'none';
+  alert('Pesanan dibuka di WhatsApp. Silakan kirim pesanan melalui chat.');
+});
+
+/* ===== Inisialisasi render (panggil saat load) ===== */
+renderCartPanel();
+</script>
 </body>
 </html>
