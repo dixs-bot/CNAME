@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cilok Goang Teh Desi</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #fff8f0;
+      margin: 0;
+      color: #333;
+    }
+    header {
+      background: linear-gradient(135deg, #ff7043, #ff5722);
+      color: white;
+      text-align: center;
+      padding: 30px 10px;
+    }
+    h1 { margin: 0; font-size: 2em; }
+    p { margin: 5px 0; }
+    .menu {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+    .menu-item {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+      padding: 15px;
+      text-align: center;
+      transition: 0.3s;
+    }
+    .menu-item:hover { transform: translateY(-5px); box-shadow: 0 5px 12px rgba(0,0,0,0.15); }
+    .menu-item img { width: 100%; border-radius: 10px; }
+
+    .download { text-align: center; margin: 20px; }
+    .download a {
+      background-color: #ff5722;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .order-platform { text-align: center; margin: 40px 0; }
+    .order-platform h2 { color: #ff5722; }
+    .platform-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .platform-links img {
+      width: 150px;
+      border-radius: 10px;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+      transition: 0.3s;
+      cursor: pointer;
+    }
+    .platform-links img:hover {
+      transform: scale(1.07);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+    }
+
+    .qris {
+      margin: 30px auto;
+      max-width: 600px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+      padding: 20px;
+      text-align: center;
+    }
+    .qris img {
+      width: 200px;
+      border-radius: 10px;
+    }
+
+    .bank-section { text-align: center; margin-top: 25px; }
+    .bank-logos {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+    .bank-logos img {
+      width: 120px;
+      border-radius: 10px;
+      background: #f9f9f9;
+      padding: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+    .bank-logos img:hover { transform: scale(1.1); }
+
+    #cek-ongkir {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+      padding: 20px;
+      margin: 40px auto;
+      max-width: 500px;
+      text-align: center;
+    }
+    #cek-ongkir input {
+      width: 90%;
+      padding: 10px;
+      margin: 5px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    #cek-ongkir button {
+      background-color: #ff5722;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    #cek-ongkir button:hover { background-color: #e64a19; }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      background: linear-gradient(135deg, #ff5722, #ff7043);
+      color: white;
+      margin-top: 40px;
+    }
+
+    .whatsapp-float {
+      position: fixed;
+      width: 60px;
+      height: 60px;
+      bottom: 20px;
+      right: 20px;
+      background-color: #25d366;
+      border-radius: 50%;
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .whatsapp-float img { width: 35px; height: 35px; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Cilok Goang Teh Desi</h1>
+  <p>Rasa Juara, Pedasnya Bikin Nagih!</p>
+</header>
+
+<section class="menu">
+  <div class="menu-item">
+    <img src="cilok.jpg" alt="Cilok Goang">
+    <h3>Cilok Original</h3>
+    <p>Rp5.000/porsi</p>
+  </div>
+  <div class="menu-item">
+    <img src="cilok.jpg" alt="Cilok Goang">
+    <h3>Cilok Goang</h3>
+    <p>Rp6.000/porsi</p>
+  </div>
+  <div class="menu-item">
+    <img src="cilok.jpg" alt="Cilok Bumbu Kacang">
+    <h3>Cilok Bumbu Kacang</h3>
+    <p>Rp7.000/porsi</p>
+  </div>
+  <div class="menu-item">
+    <img src="cilok.jpg" alt="Paket Hemat 1">
+    <h3>Paket Hemat 1</h3>
+    <p>Rp12.000</p>
+  </div>
+</section>
+
+<div class="download">
+  <a href="Menu_Cilok_Goang_Teh_Desi.pdf" download>📥 Download Menu (PDF)</a>
+</div>
+
+<section class="order-platform">
+  <h2>Pesan Langsung di Platform Favoritmu</h2>
+  <div class="platform-links">
+    <a href="https://gofood.link/u/sample" target="_blank">
+      <img src="01h56q5q4vx79xbc05p449qz3e.jpg" alt="GoFood">
+    </a>
+    <a href="https://food.grab.com/id/id/restaurant/sample" target="_blank">
+      <img src="maxresdefault.jpg" alt="GrabFood">
+    </a>
+    <a href="https://shopee.co.id/universal-link/food/shop/sample" target="_blank">
+      <img src="63fec147909c7.png" alt="ShopeeFood">
+    </a>
+  </div>
+</section>
+
+<section class="qris">
+  <h2>QRIS Pembayaran</h2>
+  <img src="qris.png" alt="QRIS Pembayaran">
+
+  <div class="bank-section">
+    <h3>Metode Pembayaran Lainnya</h3>
+    <div class="bank-logos">
+      <img src="logo-bca.png" alt="BCA">
+      <img src="logo-bni.png" alt="BNI">
+    </div>
+  </div>
+</section>
+
+<!-- Form Cek Ongkir -->
+<section id="cek-ongkir">
+  <h2>📦 Cek Ongkir Cilok Instan / Kiloan</h2>
+  <p>Pengiriman seluruh Pulau Jawa (JNE, JNT, SiCepat)</p>
+  <input type="text" id="kota" placeholder="Kota tujuan (contoh: Bandung)">
+  <input type="number" id="berat" placeholder="Berat (kg)" min="1">
+  <button onclick="hitungOngkir()">Hitung Ongkir</button>
+  <div id="hasilOngkir" style="margin-top:10px; font-weight:bold;"></div>
+</section>
+
+<footer>
+  📍 Wisma Agung, Jl. KH Usman Dhomiri RT 02/13, Kel. Padasuka, Cimahi Tengah, Kota Cimahi<br>
+  ⏰ 08:00–24:00 Setiap Hari | 📞 0812-1262-9516
+</footer>
+
+<a class="whatsapp-float" href="https://wa.me/6281212629516?text=Halo%20Teh%20Desi,%20saya%20mau%20pesan%20Cilok%20Goang%20nih!" target="_blank">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+</a>
+
+<script>
+function hitungOngkir() {
+  const kota = document.getElementById("kota").value.trim();
+  const berat = parseFloat(document.getElementById("berat").value);
+  const tarifPer5kg = 12000;
+  if (!kota || !berat || berat <= 0) {
+    document.getElementById("hasilOngkir").innerHTML =
+      "<span style='color:red;'>Harap isi kota dan berat dengan benar.</span>";
+    return;
+  }
+  const total = Math.ceil(berat / 5) * tarifPer5kg;
+  document.getElementById("hasilOngkir").innerHTML =
+    `Ongkir ke <span style='color:#ff5722;'>${kota}</span> untuk <b>${berat} kg</b> adalah <b>Rp ${total.toLocaleString('id-ID')}</b>`;
+}
+</script>
+
+</body>
+</html>
