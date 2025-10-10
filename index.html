@@ -114,7 +114,6 @@
       <a href="https://shopee.co.id/universal-link/food/shop/sample" target="_blank"><img src="images/shopeefood-logo.png" alt="ShopeeFood"></a>
     </div>
   </section>
-  
 
   <!-- QRIS & Bank -->
   <section class="qris">
@@ -128,8 +127,6 @@
   </section>
 </div>
 
-
-  
 <!-- Cart floating button -->
 <div class="cart-float" id="cartBtn" title="Lihat Keranjang">
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M6 6h15l-1.68 8.39A2 2 0 0 1 17.36 16H8.64a2 2 0 0 1-1.96-1.61L5 2H2" stroke="#333" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -155,28 +152,11 @@
 <script>
 /* ===== DATA MENU (ubah/expand sesuai kebutuhan) ===== */
 const MENU = [
- const MENU = [
- { id: 'm1', name: 'Cilok Goang Tulang', price: 17.000, img:'images/placeholder_menu.jpg' },
-  { id: 'm2', name: 'Cilok Goang Tofu Sehah', price: 16000, img:'images/placeholder_menu.jpg' },
-  { id: 'm3', name: 'Cilok Granat', price: 14000, img:'images/placeholder_menu.jpg' },
-  { id: 'm4', name: 'Cilok Kuah Sambal Ijo', price: 14000, img:'images/placeholder_menu.jpg' },
-  { id: 'm5', name: 'Cilok Goang Ceker Sambal Ijo', price: 17000, img:'images/placeholder_menu.jpg' },
-  { id: 'm6', name: 'Cilok Kuah Boncabe', price: 16000, img:'images/placeholder_menu.jpg' },
-  { id: 'm7', name: 'Mie Cilok Goang', price: 16000, img:'images/placeholder_menu.jpg' },
-  { id: 'm8', name: 'Cilok Goang Ceker Pedas', price: 18000, img:'images/placeholder_menu.jpg' },
-  { id: 'm9', name: 'Cilok Kuah Endolita', price: 14000, img:'images/placeholder_menu.jpg' },
-  { id: 'm10', name: 'Seblak Kerupuk Endolita', price: 16000, img:'images/placeholder_menu.jpg' },
-  { id: 'm11', name: 'Seblak Mie Kuah Telur Pedas', price: 14000, img:'images/placeholder_menu.jpg' },
-  { id: 'm12', name: 'Seblok Endolita', price: 13000, img:'images/placeholder_menu.jpg' }, tolong tempelkan deskripsi di sini nanti saya isi sendiri 
-  { id: 'm13', name: 'Seblok Ceker Endolita', price: 17000, img:'images/placeholder_menu.jpg' },
-  { id: 'm14', name: 'Seblak Kerupuk Rafaell', price: 17000, img:'images/placeholder_menu.jpg' },
-  { id: 'm15', name: 'Seblak 4 Varian', price: 17000, img:'images/placeholder_menu.jpg' },
-  { id: 'm16', name: 'Seblak 5 Varian', price: 19000, img:'images/placeholder_menu.jpg' },
-  { id: 'm17', name: 'seblak 6 Varian', price: 22000, img:'images/placeholder_menu.jpg' },
+  { id: 'm1', name: 'Cilok Original', price: 5000, img:'images/placeholder_menu.jpg' },
+  { id: 'm2', name: 'Cilok Goang', price: 6000, img:'images/placeholder_menu.jpg' },
+  { id: 'm3', name: 'Cilok Bumbu Kacang', price: 7000, img:'images/placeholder_menu.jpg' },
   { id: 'm4', name: 'Paket Hemat 1 (2 porsi)', price: 12000, img:'images/placeholder_menu.jpg' },
-  { id: 'm4', name: 'Paket Hemat 1 (2 porsi)', price: 12000, img:'images/placeholder_menu.jpg' },
-];
-  // tambahkan item lain jika perlu ,
+  // tambahkan item lain jika perlu
 ];
 
 /* ===== STATE KERANJANG (disimpan di localStorage supaya bertahan reload) ===== */
@@ -191,6 +171,7 @@ function saveCart(){
 }
 
 /* ===== RENDER MENU ===== */
+const menuList = document.getElementById('menuList');
 function renderMenu(){
   menuList.innerHTML = '';
   MENU.forEach(item=>{
@@ -206,9 +187,6 @@ function renderMenu(){
   });
 }
 renderMenu();
- 
-  <p style="font-size:0.9rem;color:#555;margin:4px 0 8px">${item.desc}</p>
-  const menuList = document.getElementById('menuList');
 
 /* ===== ADD TO CART ===== */
 function addToCart(id){
