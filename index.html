@@ -1,314 +1,124 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
 <head>
-  <!-- SEO META TAGS -->
-<meta name="title" content="Cilok Goang Teh Desi Cimahi - Cilok Pedas Legendaris & Seblak Enak">
-<meta name="description" content="Cilok Goang Teh Desi — Kuliner khas Cimahi dengan cilok pedas, seblak endolita, dan minuman segar. Pesan online via GoFood, GrabFood, dan ShopeeFood. Buka setiap hari 09.00–24.00.">
-<meta name="keywords" content="cilok goang cimahi, cilok pedas cimahi, cilok teh desi, seblak cimahi, cilok goang teh desi, makanan pedas cimahi, cilok cimahi tengah">
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="https://dixs-bot.github.io/Vmenu/">
-
-<!-- Open Graph (untuk WA, IG, FB) -->
-<meta property="og:title" content="Cilok Goang Teh Desi Cimahi">
-<meta property="og:description" content="Rasa Juara, Pedasnya Bikin Nagih! Pesan online via GoFood, GrabFood, ShopeeFood, atau WhatsApp.">
-<meta property="og:image" content="https://dixs-bot.github.io/Vmenu/logocilok.png">
-<meta property="og:url" content="https://dixs-bot.github.io/Vmenu/">
-<meta property="og:type" content="restaurant">
-
-<!-- Schema Markup JSON-LD -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Restaurant",
-  "name": "Cilok Goang Teh Desi",
-  "image": "https://dixs-bot.github.io/Vmenu/logocilok.png",
-  "url": "https://dixs-bot.github.io/Vmenu/",
-  "telephone": "+6281212629516",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Wisma Agung, Jl. KH. Usman Dhomiri RT 02 RW 17, Kel. Padasuka, Kec. Cimahi Tengah",
-    "addressLocality": "Cimahi",
-    "addressRegion": "Jawa Barat",
-    "postalCode": "40526",
-    "addressCountry": "ID"
-  },
-  "openingHours": "Mo-Su 09:00-24:00",
-  "servesCuisine": ["Cilok", "Seblak", "Street Food"],
-  "priceRange": "Rp8.000 - Rp27.000",
-  "sameAs": [
-    "https://gofood.co.id/bandung/restaurant/cilok-goang-teh-desi-cimahi-bdf5f39f-21b7-4f84-8c38-33deeed7b509",
-    "https://r.grab.com/g/6-20251011_170831_e03d2f193b48446c9ee266e748eda4b7_MEXMPS-6-CZMAV2KKSEJHJN",
-    "https://spf.shopee.co.id/1g9uILh8Vf"
-  ]
-}
-</script>
-
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Cilok Goang Teh Desi — Pesan Online</title>
+  <meta name="description" content="Cilok Goang Teh Desi Cimahi — cilok pedas, seblak dan minuman. Pesan online via Shopee, GoFood, Grab. Buka 09:00–24:00." />
+  <meta name="keywords" content="cilok cimahi, cilok pedas, cilok goang, teh desi, seblak, gofood, shopeefood, grabfood" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://dixs-bot.github.io/Vmenu/" />
+  <!-- Open Graph -->
+  <meta property="og:title" content="Cilok Goang Teh Desi Cimahi" />
+  <meta property="og:description" content="Rasa Juara, Pedasnya Bikin Nagih! Pesan online via Shopee, GoFood, Grab atau WA." />
+  <meta property="og:image" content="images/logocilok.png" />
+  <meta property="og:url" content="https://dixs-bot.github.io/Vmenu/" />
+  <meta property="og:type" content="restaurant" />
+
+  <!-- JSON-LD Restaurant -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "name": "Cilok Goang Teh Desi",
+    "image": "https://dixs-bot.github.io/Vmenu/logocilok.png",
+    "url": "https://dixs-bot.github.io/Vmenu/",
+    "telephone": "+6281212629516",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Wisma Agung Jl KH Usman Dhomiri RT 02 RW 17, Kel. Padasuka",
+      "addressLocality": "Cimahi",
+      "addressRegion": "Jawa Barat",
+      "postalCode": "40526",
+      "addressCountry": "ID"
+    },
+    "openingHours": "Mo-Su 09:00-24:00",
+    "servesCuisine": ["Cilok","Seblak","Street Food"]
+  }
+  </script>
+
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
     :root{
       --primary:#ff5722;
       --accent:#25d366;
       --bg:#fff8f0;
+      --muted:#666;
+      --card:#ffffff;
     }
     *{box-sizing:border-box}
-    body{
-      font-family:'Poppins',sans-serif;
-      margin:0;background:var(--bg);color:#222;
-    }
-    header{
-      background:var(--primary);color:#fff;padding:18px 12px;text-align:center;
-    }
-    header .brand {display:flex;gap:12px;align-items:center;justify-content:center}
-    header img.logo{height:56px;width:56px;border-radius:8px;object-fit:cover;box-shadow:0 2px 6px rgba(0,0,0,0.2)}
-    header h1{margin:0;font-size:1.4rem}
-    header p{margin:6px 0 0;font-size:0.95rem;opacity:0.95}
-
+    body{font-family:'Poppins',sans-serif;margin:0;background:var(--bg);color:#222;-webkit-font-smoothing:antialiased}
+    header{background:var(--primary);color:#fff;padding:14px 12px}
+    .brand{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:12px}
+    .logo-small{width:56px;height:56px;border-radius:10px;object-fit:cover;box-shadow:0 3px 10px rgba(0,0,0,0.12)}
+    header h1{margin:0;font-size:1.25rem}
+    header p{margin:2px 0 0;font-size:0.9rem;opacity:0.95}
     .container{max-width:1100px;margin:18px auto;padding:0 16px}
-
-    /* promo banner desktop dan mobile */
-    .banner-desktop {
-      display: block;
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .banner-desktop img {
-      max-width: 100%;
-      height: auto;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
-    .banner-mobile {
-      display: none;
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .banner-mobile img {
-      max-width: 100%;
-      height: auto;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
-
-    @media (max-width: 768px) {
-      .banner-desktop {
-        display: none;
-      }
-      .banner-mobile {
-        display: block;
-      }
-    }
-
-    /* menu grid */
     .menu{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
-    .card{background:#fff;border-radius:10px;padding:12px;box-shadow:0 4px 10px rgba(0,0,0,0.06);text-align:center;transition:transform .18s}
+    .card{background:var(--card);border-radius:12px;padding:12px;box-shadow:0 6px 18px rgba(0,0,0,0.06);text-align:center;transition:transform .16s}
     .card:hover{transform:translateY(-6px)}
     .card img{width:100%;height:150px;object-fit:cover;border-radius:8px}
-    .card h3{margin:8px 0 4px;font-size:1.05rem;color:var(--primary)}
-    .price{font-weight:600;margin-bottom:8px}
-    .card button{background:var(--primary);color:#fff;border:none;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:600}
+    .card h3{margin:10px 0 6px;color:var(--primary);font-size:1.05rem}
+    .price{font-weight:700;margin-bottom:8px}
+    .card button{background:var(--primary);color:#fff;border:none;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:700}
     .card button:hover{background:#e64a19}
-
-    /* download */
-    .download{margin:18px 0;text-align:center}
-    .btn-download{background:var(--primary);color:#fff;padding:10px 18px;border-radius:8px;text-decoration:none;font-weight:600;display:inline-block}
-
-    /* platform logos */
-    .platforms{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin:18px 0}
-    .platforms img{width:150px;border-radius:10px;box-shadow:0 3px 8px rgba(0,0,0,0.12);cursor:pointer}
-
-    /* QRIS & bank */
-    .qris{max-width:700px;margin:20px auto;text-align:center}
-    .qris img{width:220px;border-radius:10px}
-    .bank-logos{display:flex;gap:18px;justify-content:center;margin-top:12px}
-    .bank-logos img{width:120px;border-radius:8px;background:#fafafa;padding:8px}
-
-    /* ongkir */
-    .ongkir {
-      margin: 30px 0;
-    }
-    .ongkir input[type=number] {
-      padding: 10px;
-      width: 120px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      text-align: center;
-    }
-    .ongkir button {
-      background: var(--primary);
-      color: #fff;
-      padding: 10px 14px;
-      border: none;
-      border-radius: 8px;
-      margin-left: 8px;
-      cursor: pointer;
-      font-weight: 600;
-    }
-    .ongkir p {
-      font-weight: 600;
-      font-size: 1.1rem;
-      margin-top: 16px;
-    }
-    .ongkir .info {
-      font-size:0.95rem;
-      line-height:1.6;
-      color:#444;
-      background:#fff8f0;
-      padding:10px 14px;
-      border-radius:8px;
-      margin-bottom:18px;
-      text-align:left;
-    }
-
-    /* cart floating */
-    .cart-float{
-      position:fixed;right:18px;top:18px;width:80px;height:80px;background:#fff;border-radius:12px;box-shadow:0 6px 16px rgba(0,0,0,0.18);
-      display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:999;
-    }
-    .cart-float .badge{position:absolute;top:-6px;right:-6px;background:var(--primary);color:#fff;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px}
-
-    /* cart panel/modal */
-    .cart-panel{
-      position:fixed;right:18px;top:86px;width:330px;max-height:70vh;background:#fff;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,0.2);overflow:auto;padding:14px;z-index:999;display:none;
-    }
+    .platforms{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:18px 0}
+    .platforms a{display:inline-flex;align-items:center;gap:10px;padding:8px 12px;border-radius:10px;text-decoration:none;color:inherit}
+    .platforms img{width:120px;border-radius:10px;box-shadow:0 6px 16px rgba(0,0,0,0.08)}
+    .cart-float{position:fixed;right:18px;top:18px;width:76px;height:76px;background:#fff;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,0.18);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:999}
+    .cart-float .badge{position:absolute;top:-6px;right:-6px;background:var(--primary);color:#fff;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px}
+    .cart-panel{position:fixed;right:18px;top:110px;width:360px;max-height:72vh;background:#fff;border-radius:12px;box-shadow:0 12px 40px rgba(0,0,0,0.18);overflow:auto;padding:14px;z-index:999;display:none}
     .cart-panel h3{margin:0 0 8px;color:var(--primary)}
     .cart-item{display:flex;gap:8px;align-items:center;padding:8px;border-bottom:1px dashed #eee}
-    .cart-item:last-child{border-bottom:none}
     .cart-item .name{flex:1;font-weight:600}
-    .cart-item .qty{display:flex;gap:6px;align-items:center}
-    .cart-item button.small{background:#eee;border:none;padding:6px 8px;border-radius:6px;cursor:pointer}
-    .cart-summary{margin-top:12px;text-align:right;font-weight:700}
+    .cart-summary{margin-top:12px;text-align:right;font-weight:800}
     .cart-actions{display:flex;gap:8px;margin-top:10px}
     .cart-actions button{flex:1;padding:10px;border-radius:8px;border:none;cursor:pointer;font-weight:700}
     .btn-checkout{background:var(--accent);color:#fff}
     .btn-clear{background:#f2f2f2}
-
-    /* responsive */
-    @media (max-width:520px){
-      .cart-panel{right:8px;left:8px;width:auto;top:auto;bottom:16px;max-height:60vh}
-    }
-
-    /* modal style for checkout */
-    .modal {
-      display: none; 
-      position: fixed; 
-      z-index: 10000;
-      left: 0;
-      top: 0;
-      width: 100%; 
-      height: 100%; 
-      overflow: auto; 
-      background-color: rgba(0,0,0,0.4); 
-    }
-    .modal-content {
-      background-color: #fff;
-      margin: 15% auto; 
-      padding: 20px;
-      border-radius: 8px;
-      width: 90%;
-      max-width: 400px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.25);
-    }
-    .close-button {
-      color: #aaa;
-      float: right;
-      font-size: 24px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    .close-button:hover {
-      color: #000;
-    }
-    #paymentForm label {
-      font-weight: 600;
-      font-size: 1rem;
-    }
-    #paymentForm button {
-      background: var(--primary);
-      color: white;
-      border: none;
-      padding: 10px 18px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: 700;
-    }
-    #paymentForm button:hover {
-      background: #e64a19;
-    }
+    .modal{display:none;position:fixed;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,0.45);z-index:10000}
+    .modal-content{background:#fff;margin:6% auto;border-radius:12px;padding:18px;width:94%;max-width:560px;box-shadow:0 12px 36px rgba(0,0,0,0.25)}
+    .close-button{float:right;font-size:20px;color:#777;cursor:pointer}
+    .form-row{display:flex;gap:8px;align-items:center;margin-top:8px}
+    .form-row input[type=number], .form-row input[type=text]{padding:10px;border:1px solid #e5e7eb;border-radius:8px;width:180px}
+    .small-btn{background:#ff7043;color:#fff;border:none;padding:8px 10px;border-radius:8px;cursor:pointer;font-weight:700}
+    label.inline{display:inline-flex;gap:8px;align-items:center;margin:6px 0}
+    .ship-btn{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;border:none;cursor:pointer;font-weight:700}
+    .ship-shopee{background:#ff6b35;color:#fff}
+    .ship-gojek{background:#16a34a;color:#fff}
+    .ship-grab{background:#00b14f;color:#fff}
+    .ship-pickup{background:#6b7280;color:#fff}
+    .footer-note{font-size:0.95rem;color:var(--muted);margin-top:10px}
+    @media(max-width:520px){ .cart-panel{right:8px;left:8px;width:auto;top:auto;bottom:16px} .form-row {flex-direction:column;align-items:stretch} }
   </style>
 </head>
 <body>
 
 <header>
   <div class="brand">
-    <img class="logo" src="logocilok.png" alt="Logo Cilok">
+    <img class="logo-small" src="images/logocilok.png" alt="Logo Cilok">
     <div>
       <h1>Cilok Goang Teh Desi</h1>
-      <p>Rasa Juara, Pedasnya Bikin Nagih!</p>
+      <p>Wisma Agung, Jl. KH Usman Dhomiri RT 02 RW 17, Padasuka — Buka 09:00–24:00</p>
     </div>
   </div>
 </header>
 
 <div class="container">
-
-  <!-- Banner Promo Desktop -->
-  <div class="banner-desktop">
-    <img src="cilok bumbu kacang.png" alt="Promo Spesial Desktop">
-  </div>
-
-  <!-- Banner Promo Mobile -->
-  <div class="banner-mobile">
-    <img src="cilok bumbu kacang.png" alt="Promo Spesial Mobile">
-  </div>
-
-  <!-- Menu -->
   <section>
-    <h2 style="color:var(--primary);text-align:center;margin-top:18px">Menu Unggulan</h2>
+    <h2 style="text-align:center;color:var(--primary)">Menu Unggulan</h2>
     <div class="menu" id="menuList">
-      <!-- Item akan di-render lewat JS -->
+      <!-- Menu akan dirender lewat JS -->
     </div>
   </section>
 
-  <!-- Download -->
-  <div class="download">
-    <a class="btn-download" href="menu.pdf" download>📥 Download Menu (PDF)</a>
+  <div style="text-align:center;margin-top:18px">
+    <a style="background:var(--primary);color:#fff;padding:10px 16px;border-radius:8px;text-decoration:none;font-weight:700" href="menu.pdf" download>📥 Download Menu (PDF)</a>
   </div>
 
-  <!-- Platform links -->
-  <section style="text-align:center">
-    <h2 style="color:var(--primary)">Pesan di Platform Favorit</h2>
-    <div class="platforms">
-      <a href="https://gofood.co.id/bandung/restaurant/cilok-goang-teh-desi-cimahi-bdf5f39f-21b7-4f84-8c38-33deeed7b509" target="_blank"><img src="gofood.jpg" alt="GoFood"></a>
-      <a href="https://r.grab.com/g/6-20251011_170831_e03d2f193b48446c9ee266e748eda4b7_MEXMPS-6-CZMAV2KKSEJHJN" target="_blank"><img src="grab.jpg" alt="GrabFood"></a>
-      <a href="https://spf.shopee.co.id/1g9uILh8Vf" target="_blank"><img src="shopee.jpg" alt="ShopeeFood"></a>
-    </div>
-  </section>
-
-  <!-- Ongkir -->
-  <section class="ongkir">
-    <h2 style="color:var(--primary)">Cek Ongkir Pengantaran</h2>
-
-    <p class="info">
-      💡 <b>Cara cek jarak:</b><br>
-      1️⃣ Buka aplikasi <b>Google Maps</b> atau <b>Waze</b>.<br>
-      2️⃣ Ketik <b>"Cilok Goang Teh Desi"</b> di kolom pencarian.<br>
-      3️⃣ Pilih menu <b>Rute</b> dan masukkan alamat rumah kamu.<br>
-      4️⃣ Lihat jarak dalam satuan <b>km</b> dari rumah ke gerai.<br><br>
-      Setelah tahu jaraknya, masukkan angkanya di kolom cek ongkir untuk menghitung ongkir otomatis 🚚
-    </p>
-
-    <p>Masukkan jarak dari lokasi kami (km):</p>
-    <input id="jarakInput" type="number" placeholder="contoh: 6" min="0">
-    <button onclick="hitungOngkir()">Hitung</button>
-    <p id="hasilOngkir"></p>
-  </section>
-</div>
-
-<!-- Cart floating button -->
+<!-- Cart floating -->
 <div class="cart-float" id="cartBtn" title="Lihat Keranjang">
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M6 6h15l-1.68 8.39A2 2 0 0 1 17.36 16H8.64a2 2 0 0 1-1.96-1.61L5 2H2" stroke="#333" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M6 6h15l-1.68 8.39A2 2 0 0 1 17.36 16H8.64a2 2 0 0 1-1.96-1.61L5 2H2" stroke="#333" stroke-width="1.2" stroke-linecap="round"/></svg>
   <div class="badge" id="cartCount">0</div>
 </div>
 
@@ -318,32 +128,71 @@
   <div id="cartItems"></div>
   <div class="cart-summary" id="cartTotal">Total: Rp0</div>
   <div class="cart-actions">
-    <button class="btn-clear" id="clearCart">Kosongkan</button>
-    <button class="btn-checkout" id="checkoutBtn">Checkout via WhatsApp</button>
+    <button id="clearCart" class="btn-clear">Kosongkan</button>
+    <button id="checkoutBtn" class="btn-checkout">Checkout</button>
+  </div>
+  <div style="margin-top:12px;text-align:center">
+    <p style="margin:6px 0">Atau pesan langsung via:</p>
+    <a href="https://spf.shopee.co.id/1g9uILh8Vf" target="_blank"><img src="images/shopee.svg" style="width:90px;margin:6px;" alt="Shopee"></a>
+    <a href="https://gofood.co.id/bandung/restaurant/cilok-goang-teh-desi-cimahi-bdf5f39f-21b7-4f84-8c38-33deeed7b509" target="_blank"><img src="images/gojek.svg" style="width:90px;margin:6px;" alt="GoFood"></a>
+    <a href="https://r.grab.com/g/6-20251011_170831_e03d2f193b48446c9ee266e748eda4b7_MEXMPS-6-CZMAV2KKSEJHJN" target="_blank"><img src="images/grab.svg" style="width:90px;margin:6px;" alt="Grab"></a>
   </div>
 </div>
 
-<!-- Modal Checkout -->
-<div id="checkoutModal" class="modal">
+<!-- Checkout Modal -->
+<div id="checkoutModal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
   <div class="modal-content">
     <span class="close-button" id="modalClose">&times;</span>
-    <h3>Pilih Metode Pembayaran</h3>
-    <form id="paymentForm">
-      <label><input type="radio" name="paymentMethod" value="Transfer" checked> Transfer Bank</label><br>
-      <label><input type="radio" name="paymentMethod" value="QRIS"> QRIS</label><br><br>
-      <div id="paymentInfo" style="margin-top:12px;"></div>
-      <button type="submit">Konfirmasi Pembayaran</button>
+    <h3>Checkout — Pilih Pengiriman & Pembayaran</h3>
+
+    <form id="checkoutForm">
+      <div style="margin-top:8px">
+        <label style="font-weight:700">Pilih Layanan Pengiriman</label>
+        <div style="margin-top:8px">
+          <label class="inline"><input type="radio" name="shipping" value="Shopee" checked> <button type="button" class="ship-btn ship-shopee">Shopee SPX</button></label>
+          <label class="inline"><input type="radio" name="shipping" value="Gojek"> <button type="button" class="ship-btn ship-gojek">Gojek GoSend</button></label>
+          <label class="inline"><input type="radio" name="shipping" value="Grab"> <button type="button" class="ship-btn ship-grab">GrabExpress</button></label>
+          <label class="inline"><input type="radio" name="shipping" value="Pickup"> <button type="button" class="ship-btn ship-pickup">Ambil di Tempat</button></label>
+        </div>
+      </div>
+
+      <div id="shippingBlock" style="margin-top:12px">
+        <!-- Isi dinamis: jika Pickup -> no ongkir; else input jarak & tombol hitung -->
+        <div class="form-row">
+          <label style="min-width:150px;font-weight:600">Masukkan jarak (km)</label>
+          <input id="jarakInputModal" type="number" min="0" placeholder="contoh: 6">
+          <button type="button" id="btnHitungModal" class="small-btn">Hitung Ongkir</button>
+        </div>
+        <p id="hasilOngkirModal" style="margin-top:8px;font-weight:800"></p>
+      </div>
+
+      <hr style="margin-top:12px">
+
+      <div style="margin-top:10px">
+        <label style="font-weight:700">Metode Pembayaran</label><br>
+        <label class="inline"><input type="radio" name="paymentMethod" value="Transfer" checked> Transfer Bank</label>
+        <label class="inline"><input type="radio" name="paymentMethod" value="QRIS"> QRIS</label>
+      </div>
+
+      <div id="paymentArea" style="margin-top:10px"></div>
+
+      <div style="margin-top:14px;display:flex;gap:8px">
+        <button type="submit" class="small-btn" style="flex:1">Konfirmasi & Kirim ke WhatsApp</button>
+        <button type="button" id="openPlatformBtn" class="small-btn" style="background:#00796b;flex:1">Buka Aplikasi</button>
+      </div>
+
+      <p class="footer-note">Estimasi ongkir bersifat perkiraan. Untuk tarif resmi, cek aplikasi layanan pengiriman.</p>
     </form>
   </div>
 </div>
 
-<!-- Floating WhatsApp contact -->
-<a class="whatsapp-float" href="https://wa.me/6281212629516" target="_blank" title="Chat Teh Desi">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA" style="width:50px;height:50px">
+<!-- Floating WA -->
+<a href="https://wa.me/6281212629516" target="_blank" title="Chat Teh Desi" style="position:fixed;left:18px;bottom:18px;z-index:999">
+  <img src="images/whatsapp.svg" style="width:62px;height:62px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.18)">
 </a>
 
 <script>
-/* ===== DATA MENU ===== */
+/* ===== DATA MENU (sesuaikan / tambah item di sini) ===== */
 const MENU = [
   { id: 'm1', name: 'Paket Hemat 1', price: 27000, img:'images/placeholder_menu.jpg' },
   { id: 'm2', name: 'Paket Hemat 2', price: 27000, img:'images/placeholder_menu.jpg' },
@@ -389,22 +238,16 @@ const MENU = [
   { id: 'm49', name: 'Green Tea', price: 12000, img:'green tea.jpg' }
 ];
 
-/* ===== STATE KERANJANG ===== */
-let cart = JSON.parse(localStorage.getItem('cg_cart')||'[]');
-
-/* ===== HELPERS ===== */
+/* ===== STATE ===== */
+let cart = JSON.parse(localStorage.getItem('cg_cart') || '[]');
 const rupiah = n => 'Rp' + n.toLocaleString('id-ID');
-
-function saveCart(){
-  localStorage.setItem('cg_cart', JSON.stringify(cart));
-  renderCartCount();
-}
+function saveCart(){ localStorage.setItem('cg_cart', JSON.stringify(cart)); renderCartCount(); }
 
 /* ===== RENDER MENU ===== */
 const menuList = document.getElementById('menuList');
 function renderMenu(){
   menuList.innerHTML = '';
-  MENU.forEach(item=>{
+  MENU.forEach(item => {
     const div = document.createElement('div');
     div.className = 'card';
     div.innerHTML = `
@@ -418,184 +261,193 @@ function renderMenu(){
 }
 renderMenu();
 
-/* ===== ADD TO CART ===== */
+/* ===== CART ===== */
 function addToCart(id){
-  const menuItem = MENU.find(m => m.id === id);
-  if(!menuItem) return;
+  const item = MENU.find(m => m.id === id);
+  if(!item) return;
   const found = cart.find(c => c.id === id);
   if(found) found.qty++;
-  else cart.push({ id:menuItem.id, name:menuItem.name, price:menuItem.price, qty:1 });
+  else cart.push({ id:item.id, name:item.name, price:item.price, qty:1 });
   saveCart();
   renderCartPanel();
   showCartPanel();
 }
 
-/* ===== RENDER CART COUNT ===== */
 function renderCartCount(){
-  const count = cart.reduce((s,i)=>s+i.qty,0);
-  document.getElementById('cartCount').textContent = count;
+  const c = cart.reduce((s,i)=>s+i.qty,0);
+  document.getElementById('cartCount').textContent = c;
 }
 renderCartCount();
 
-/* ===== CART PANEL UI ===== */
 const cartBtn = document.getElementById('cartBtn');
 const cartPanel = document.getElementById('cartPanel');
 const cartItemsEl = document.getElementById('cartItems');
 const cartTotalEl = document.getElementById('cartTotal');
 
 cartBtn.addEventListener('click', ()=> {
-  if(cartPanel.style.display === 'block') cartPanel.style.display = 'none';
-  else showCartPanel();
+  cartPanel.style.display = (cartPanel.style.display === 'block') ? 'none' : 'block';
 });
 
-function showCartPanel(){
-  renderCartPanel();
-  cartPanel.style.display = 'block';
-  cartPanel.setAttribute('aria-hidden','false');
-}
-
+function showCartPanel(){ renderCartPanel(); cartPanel.style.display='block'; cartPanel.setAttribute('aria-hidden','false'); }
 function renderCartPanel(){
   cartItemsEl.innerHTML = '';
-  if(cart.length===0){
-    cartItemsEl.innerHTML = '<p style="padding:8px;color:#666">Keranjang masih kosong.</p>';
-    cartTotalEl.textContent = 'Total: Rp0';
-    renderCartCount();
-    saveCart();
-    return;
+  if(cart.length === 0){
+    cartItemsEl.innerHTML = '<p style="color:#666">Keranjang kosong.</p>'; cartTotalEl.textContent = 'Total: Rp0'; renderCartCount(); return;
   }
   let total = 0;
-  cart.forEach((it, idx)=>{
+  cart.forEach((it, idx) => {
     const sub = it.price * it.qty;
     total += sub;
     const node = document.createElement('div');
     node.className = 'cart-item';
     node.innerHTML = `
       <div class="name">${it.name}</div>
-      <div style="min-width:110px;text-align:right">
-        <div style="font-weight:600">${rupiah(it.price)}</div>
-        <div class="qty" style="margin-top:6px;justify-content:flex-end">
-          <button class="small" onclick="changeQty(${idx}, -1)">-</button>
+      <div style="min-width:120px;text-align:right">
+        <div style="font-weight:700">${rupiah(it.price)}</div>
+        <div style="margin-top:6px;display:flex;gap:6px;justify-content:flex-end">
+          <button class="small-btn" onclick="changeQty(${idx},-1)">-</button>
           <span style="padding:0 8px">${it.qty}</span>
-          <button class="small" onclick="changeQty(${idx}, 1)">+</button>
-          <button class="small" style="margin-left:8px;background:#ff5252;color:#fff" onclick="removeItem(${idx})">Hapus</button>
+          <button class="small-btn" onclick="changeQty(${idx},1)">+</button>
         </div>
       </div>
     `;
     cartItemsEl.appendChild(node);
   });
   cartTotalEl.textContent = `Total: ${rupiah(total)}`;
-  renderCartCount();
   saveCart();
+  renderCartCount();
 }
 
-/* ===== UBAH JUMLAH / HAPUS ===== */
-function changeQty(index, delta){
-  cart[index].qty += delta;
-  if(cart[index].qty <= 0) cart.splice(index,1);
+function changeQty(i, d){
+  cart[i].qty += d;
+  if(cart[i].qty <= 0) cart.splice(i,1);
   renderCartPanel();
 }
-
-function removeItem(index){
-  cart.splice(index,1);
-  renderCartPanel();
-}
-
-/* ===== CLEAR CART ===== */
-document.getElementById('clearCart').addEventListener('click', function(){
-  if(confirm('Kosongkan keranjang?')){ cart = []; saveCart(); renderCartPanel(); cartPanel.style.display='none'; }
+document.getElementById('clearCart').addEventListener('click', ()=>{
+  if(confirm('Kosongkan keranjang?')){ cart=[]; saveCart(); renderCartPanel(); cartPanel.style.display='none'; }
 });
 
-/* ===== CHECKOUT VIA WHATSAPP ===== */
+/* ===== CHECKOUT & ONGKIR ===== */
 const checkoutBtn = document.getElementById('checkoutBtn');
 const modal = document.getElementById('checkoutModal');
-const closeModalBtn = document.getElementById('modalClose');
-const paymentForm = document.getElementById('paymentForm');
-const paymentInfoDiv = document.getElementById('paymentInfo');
+const modalClose = document.getElementById('modalClose');
+const checkoutForm = document.getElementById('checkoutForm');
+const hasilOngkirModal = document.getElementById('hasilOngkirModal');
 
-checkoutBtn.addEventListener('click', (e) => {
-  e.preventDefault();
-  if(cart.length === 0) {
-    alert('Keranjang kosong — tambahkan menu dulu.');
-    return;
-  }
-  modal.style.display = 'block';
-  updatePaymentInfo();
+checkoutBtn.addEventListener('click', ()=> {
+  if(cart.length === 0){ alert('Keranjang kosong — tambahkan menu dulu.'); return; }
+  modal.style.display='block'; modal.setAttribute('aria-hidden','false');
+  updatePaymentArea(); updateShippingBlock();
 });
+modalClose.addEventListener('click', ()=> { modal.style.display='none'; });
+window.addEventListener('click', (e)=>{ if(e.target === modal) modal.style.display='none'; });
 
-function updatePaymentInfo(){
-  const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
-  if(paymentMethod === 'Transfer'){
-    paymentInfoDiv.innerHTML = `
-      <p>Transfer ke Rekening BCA:</p>
-      <p><strong>1390997651</strong> a/n Desirusmianti</p>
-    `;
-  } else if(paymentMethod === 'QRIS'){
-    paymentInfoDiv.innerHTML = `
-      <p>Scan QRIS di bawah ini untuk pembayaran:</p>
-      <img src="qris-cilokgoang.jpg" alt="QRIS Cilok Goang" style="width:220px; border-radius:8px;"/>
-    `;
+/* payment area update */
+function updatePaymentArea(){
+  const val = document.querySelector('input[name="paymentMethod"]:checked')?.value;
+  const area = document.getElementById('paymentArea');
+  if(!val) { area.innerHTML=''; return; }
+  if(val === 'Transfer'){
+    area.innerHTML = '<p style="font-weight:700">Transfer ke BCA:<br><span style="font-size:1.05rem">1390997651 a/n Desirusmianti</span></p>';
   } else {
-    paymentInfoDiv.innerHTML = '';
+    area.innerHTML = '<p style="font-weight:700">Bayar via QRIS:</p><p><img src="images/qris.svg" style="width:180px;border-radius:8px"></p>';
   }
 }
+document.querySelectorAll('input[name="paymentMethod"]').forEach(r => r.addEventListener('change', updatePaymentArea));
+updatePaymentArea();
 
-// Update info ketika pilihan payment berubah
-paymentForm.querySelectorAll('input[name="paymentMethod"]').forEach(radio=>{
-  radio.addEventListener('change', updatePaymentInfo);
-});
-
-closeModalBtn.addEventListener('click', () => {
-  modal.style.display = 'none';
-});
-
-window.addEventListener('click', (event) => {
-  if(event.target === modal){
-    modal.style.display = 'none';
+/* shipping block dynamic */
+function updateShippingBlock(){
+  const selected = document.querySelector('input[name="shipping"]:checked')?.value;
+  const block = document.getElementById('shippingBlock');
+  if(selected === 'Pickup'){
+    block.innerHTML = '<p style="font-weight:700">🏠 Ambil di Tempat — Ongkir: Rp0</p>';
+    hasilOngkirModal.textContent = '';
+    return;
   }
+  block.innerHTML = `
+    <div class="form-row">
+      <label style="min-width:150px;font-weight:600">Masukkan jarak (km)</label>
+      <input id="jarakInputModal" type="number" min="0" placeholder="contoh: 6">
+      <button type="button" id="btnHitungModal" class="small-btn">Hitung Ongkir</button>
+    </div>
+    <p id="hasilOngkirModal" style="margin-top:8px;font-weight:800"></p>
+  `;
+  document.getElementById('btnHitungModal').addEventListener('click', ()=> {
+    const jar = parseFloat(document.getElementById('jarakInputModal').value);
+    if(isNaN(jar) || jar <= 0){ document.getElementById('hasilOngkirModal').textContent = '⚠️ Masukkan jarak yang benar.'; return; }
+    const service = document.querySelector('input[name="shipping"]:checked').value;
+    const ong = kalkulasiOngkir(service, jar);
+    const link = linkByService(service);
+    document.getElementById('hasilOngkirModal').innerHTML = `🚚 Estimasi ongkir (${service}): <b>${rupiah(ong)}</b><br><a id="openAppLink" href="${link}" target="_blank" style="font-weight:700;color:var(--primary)">➡️ Buka di aplikasi ${service}</a>`;
+  });
+}
+document.querySelectorAll('input[name="shipping"]').forEach(r => r.addEventListener('change', updateShippingBlock));
+updateShippingBlock();
+
+/* ongkir rules:
+   - Shopee: base 8.000 for <=5 km, tambahan 2.000 per km (rounded up)
+   - Gojek: base 9.000 for <=5 km, tambahan 1.500 per km
+   - Grab: base 9.000 for <=5 km, tambahan 1.500 per km
+*/
+function kalkulasiOngkir(service, jarak){
+  let base = 0, per = 0;
+  if(service === 'Shopee'){ base = 8000; per = 2000; }
+  if(service === 'Gojek'){ base = 9000; per = 1500; }
+  if(service === 'Grab'){ base = 9000; per = 1500; }
+  if(jarak > 5){
+    const lebih = Math.ceil(jarak - 5);
+    return base + (lebih * per);
+  }
+  return base;
+}
+
+function linkByService(service){
+  if(service === 'Shopee') return 'https://spf.shopee.co.id/1g9uILh8Vf';
+  if(service === 'Gojek') return 'https://gofood.co.id/bandung/restaurant/cilok-goang-teh-desi-cimahi-bdf5f39f-21b7-4f84-8c38-33deeed7b509';
+  if(service === 'Grab') return 'https://r.grab.com/g/6-20251011_170831_e03d2f193b48446c9ee266e748eda4b7_MEXMPS-6-CZMAV2KKSEJHJN';
+  return '#';
+}
+
+/* open app button (buka platform yg dipilih) */
+document.getElementById('openPlatformBtn').addEventListener('click', ()=>{
+  const service = document.querySelector('input[name="shipping"]:checked')?.value || 'Shopee';
+  const link = linkByService(service);
+  window.open(link, '_blank');
 });
 
-paymentForm.addEventListener('submit', (e) => {
+/* submit checkout -> format pesan WA */
+checkoutForm.addEventListener('submit', (e) => {
   e.preventDefault();
-  const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
-  alert(`Pembayaran dipilih: ${paymentMethod}\nTerima kasih atas pesanannya!`);
-  modal.style.display = 'none';
-
-  let pesan = `Halo Teh Desi\n\nSaya mau pesan:\n`;
-  let total = 0;
-  cart.forEach(it=>{
+  const pay = document.querySelector('input[name="paymentMethod"]:checked')?.value || 'Transfer';
+  const ship = document.querySelector('input[name="shipping"]:checked')?.value || 'Shopee';
+  let subtotal = 0;
+  let pesan = 'Halo Teh Desi\\n\\nSaya mau pesan:\\n';
+  cart.forEach(it => {
     const sub = it.price * it.qty;
-    total += sub;
-    pesan += `- ${it.name} x${it.qty} = Rp${sub.toLocaleString('id-ID')}\n`;
+    subtotal += sub;
+    pesan += `- ${it.name} x${it.qty} = Rp${sub.toLocaleString('id-ID')}\\n`;
   });
-  pesan += `\nTotal: Rp${total.toLocaleString('id-ID')}\n\nMetode Pembayaran: ${paymentMethod}\nAlamat / catatan: `;
-  const wa = 'https://wa.me/6281212629516?text=' + encodeURIComponent(pesan);
-  window.open(wa, '_blank');
+  let jarVal = parseFloat(document.getElementById('jarakInputModal')?.value || 0);
+  let ongkir = 0;
+  if(ship !== 'Pickup'){
+    if(isNaN(jarVal) || jarVal <= 0){ alert('Masukkan jarak (km) untuk estimasi ongkir.'); return; }
+    ongkir = kalkulasiOngkir(ship, jarVal);
+  }
+  pesan += `\\nMetode Pengiriman: ${ship}\\nEstimasi Ongkir: Rp${ongkir.toLocaleString('id-ID')}\\nMetode Pembayaran: ${pay}\\nTotal: Rp${(subtotal + ongkir).toLocaleString('id-ID')}\\n\\nAlamat / Catatan: `;
+  const waUrl = 'https://wa.me/6281212629516?text=' + encodeURIComponent(pesan);
+  window.open(waUrl, '_blank');
 
+  // clear cart & close modal
   cart = [];
   saveCart();
   renderCartPanel();
-  cartPanel.style.display = 'none';
+  modal.style.display = 'none';
 });
 
-  /* ===== HITUNG ONGKIR ===== */
-function hitungOngkir() {
-  const jarakInput = document.getElementById("jarakInput");
-  const hasilOngkir = document.getElementById("hasilOngkir");
-  const jarak = parseFloat(jarakInput.value);
-
-  if (isNaN(jarak) || jarak <= 0) {
-    hasilOngkir.innerHTML = "⚠️ Masukkan jarak yang benar (dalam km).";
-    return;
-  }
-
-  let ongkir = 8000; // harga dasar 5 km pertama
-  if (jarak > 5) {
-    const tambahan = Math.ceil(jarak - 5);
-    ongkir += tambahan * 2000;
-  }
-
-  hasilOngkir.innerHTML = `🚚 Ongkir untuk jarak ${jarak} km adalah <b>Rp ${ongkir.toLocaleString('id-ID')}</b>`;
-}
+/* init render */
+renderCartPanel();
 </script>
+
 </body>
 </html>
