@@ -83,6 +83,43 @@
     .bank-logos{display:flex;gap:18px;justify-content:center;margin-top:12px}
     .bank-logos img{width:120px;border-radius:8px;background:#fafafa;padding:8px}
 
+    /* ongkir */
+    .ongkir {
+      margin: 30px 0;
+    }
+    .ongkir input[type=number] {
+      padding: 10px;
+      width: 120px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+    .ongkir button {
+      background: var(--primary);
+      color: #fff;
+      padding: 10px 14px;
+      border: none;
+      border-radius: 8px;
+      margin-left: 8px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .ongkir p {
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-top: 16px;
+    }
+    .ongkir .info {
+      font-size:0.95rem;
+      line-height:1.6;
+      color:#444;
+      background:#fff8f0;
+      padding:10px 14px;
+      border-radius:8px;
+      margin-bottom:18px;
+      text-align:left;
+    }
+
     /* cart floating */
     .cart-float{
       position:fixed;right:18px;top:18px;width:56px;height:56px;background:#fff;border-radius:12px;box-shadow:0 6px 16px rgba(0,0,0,0.18);
@@ -144,6 +181,7 @@
     </div>
   </section>
 
+  <!-- Download -->
   <div class="download">
     <a class="btn-download" href="menu.pdf" download>📥 Download Menu (PDF)</a>
   </div>
@@ -158,6 +196,7 @@
     </div>
   </section>
 
+  <!-- QRIS & Bank -->
   <section class="qris">
     <h2 style="color:var(--primary)">Metode Pembayaran</h2>
     <p>Scan QRIS atau transfer melalui bank</p>
@@ -167,6 +206,25 @@
       <img src="bca.png" alt="BCA">
       <img src="bni.png" alt="BNI">
     </div>
+  </section>
+
+  <!-- Ongkir -->
+  <section class="ongkir">
+    <h2 style="color:var(--primary)">Cek Ongkir Pengantaran</h2>
+
+    <p class="info">
+      💡 <b>Cara cek jarak:</b><br>
+      1️⃣ Buka aplikasi <b>Google Maps</b> atau <b>Waze</b>.<br>
+      2️⃣ Ketik <b>"Cilok Goang Teh Desi"</b> di kolom pencarian.<br>
+      3️⃣ Pilih menu <b>Rute</b> dan masukkan alamat rumah kamu.<br>
+      4️⃣ Lihat jarak dalam satuan <b>km</b> dari rumah ke gerai.<br><br>
+      Setelah tahu jaraknya, masukkan angkanya di kolom cek ongkir untuk menghitung ongkir otomatis 🚚
+    </p>
+
+    <p>Masukkan jarak dari lokasi kami (km):</p>
+    <input id="jarakInput" type="number" placeholder="contoh: 6" min="0">
+    <button onclick="hitungOngkir()">Hitung</button>
+    <p id="hasilOngkir"></p>
   </section>
 </div>
 
@@ -193,7 +251,7 @@
 </a>
 
 <script>
-/* ===== DATA MENU (ubah/expand sesuai kebutuhan) ===== */
+/* ===== DATA MENU ===== */
 const MENU = [
   { id: 'm1', name: 'Paket Hemat 1', price: 27000, img:'images/placeholder_menu.jpg' },
   { id: 'm2', name: 'Paket Hemat 2', price: 27000, img:'images/placeholder_menu.jpg' },
@@ -246,7 +304,7 @@ const MENU = [
   { id: 'm49', name: 'Green Tea', price: 12000, img:'images/placeholder_menu.jpg' }
 ];
 
-/* ===== STATE KERANJANG (disimpan di localStorage supaya bertahan reload) ===== */
+/* ===== STATE KERANJANG ===== */
 let cart = JSON.parse(localStorage.getItem('cg_cart')||'[]');
 
 /* ===== HELPERS ===== */
@@ -265,10 +323,10 @@ function renderMenu(){
     const div = document.createElement('div');
     div.className = 'card';
     div.innerHTML = `
-      <img src="${item.img}" alt="${item.name}">
-      <h3>${item.name}</h3>
-      <div class="price">${rupiah(item.price)}</div>
-      <button onclick="addToCart('${item.id}')">Tambah ke Keranjang 🛒</button>
+      <img src="\${item.img}" alt="\${item.name}">
+      <h3>\${item.name}</h3>
+      <div class="price">\${rupiah(item.price)}</div>
+      <button onclick="addToCart('\${item.id}')">Tambah ke Keranjang 🛒</button>
     `;
     menuList.appendChild(div);
   });
@@ -284,7 +342,7 @@ function addToCart(id){
   else cart.push({ id:menuItem.id, name:menuItem.name, price:menuItem.price, qty:1 });
   saveCart();
   renderCartPanel();
-  showCartPanel(); // buka panel supaya user lihat
+  showCartPanel();
 }
 
 /* ===== RENDER CART COUNT ===== */
@@ -327,20 +385,20 @@ function renderCartPanel(){
     const node = document.createElement('div');
     node.className = 'cart-item';
     node.innerHTML = `
-      <div class="name">${it.name}</div>
+      <div class="name">\${it.name}</div>
       <div style="min-width:110px;text-align:right">
-        <div style="font-weight:600">${rupiah(it.price)}</div>
+        <div style="font-weight:600">\${rupiah(it.price)}</div>
         <div class="qty" style="margin-top:6px;justify-content:flex-end">
-          <button class="small" onclick="changeQty(${idx}, -1)">-</button>
-          <span style="padding:0 8px">${it.qty}</span>
-          <button class="small" onclick="changeQty(${idx}, 1)">+</button>
-          <button class="small" style="margin-left:8px;background:#ff5252;color:#fff" onclick="removeItem(${idx})">Hapus</button>
+          <button class="small" onclick="changeQty(\${idx}, -1)">-</button>
+          <span style="padding:0 8px">\${it.qty}</span>
+          <button class="small" onclick="changeQty(\${idx}, 1)">+</button>
+          <button class="small" style="margin-left:8px;background:#ff5252;color:#fff" onclick="removeItem(\${idx})">Hapus</button>
         </div>
       </div>
     `;
     cartItemsEl.appendChild(node);
   });
-  cartTotalEl.textContent = `Total: ${rupiah(total)}`;
+  cartTotalEl.textContent = \`Total: \${rupiah(total)}\`;
   renderCartCount();
   saveCart();
 }
@@ -362,7 +420,7 @@ document.getElementById('clearCart').addEventListener('click', function(){
   if(confirm('Kosongkan keranjang?')){ cart = []; saveCart(); renderCartPanel(); cartPanel.style.display='none'; }
 });
 
-/* ===== CHECKOUT VIA WHATSAPP (Opsi A: langsung WA) ===== */
+/* ===== CHECKOUT VIA WHATSAPP ===== */
 document.getElementById('checkoutBtn').addEventListener('click', function(){
   if(cart.length === 0){ alert('Keranjang kosong — tambahkan menu dulu.'); return; }
   let pesan = 'Halo Teh Desi%0A%0ASaya mau pesan:%0A';
@@ -370,9 +428,9 @@ document.getElementById('checkoutBtn').addEventListener('click', function(){
   cart.forEach(it=>{
     const sub = it.price * it.qty;
     total += sub;
-    pesan += `- ${it.name} x${it.qty} = ${rupiah(it.price * it.qty)}%0A`;
+    pesan += \`- \${it.name} x\${it.qty} = \${rupiah(it.price * it.qty)}%0A\`;
   });
-  pesan += `%0ATotal: ${rupiah(total)}%0A%0AAlamat / catatan: `;
+  pesan += \`%0ATotal: \${rupiah(total)}%0A%0AAlamat / catatan: \`;
   const wa = 'https://wa.me/6281212629516?text=' + encodeURIComponent(pesan);
   window.open(wa, '_blank');
 
@@ -383,8 +441,23 @@ document.getElementById('checkoutBtn').addEventListener('click', function(){
   alert('Pesanan dibuka di WhatsApp. Silakan kirim pesanan melalui chat.');
 });
 
-/* ===== Inisialisasi render (panggil saat load) ===== */
-renderCartPanel();
+/* ===== CEK ONGKIR ===== */
+function hitungOngkir(){
+  const jarak = parseFloat(document.getElementById('jarakInput').value);
+  const hasilEl = document.getElementById('hasilOngkir');
+  
+  if(isNaN(jarak) || jarak < 0){
+    hasilEl.textContent = 'Masukkan jarak yang valid.';
+    return;
+  }
+  
+  let ongkir = 8000;
+  if(jarak > 5){
+    ongkir += Math.ceil(jarak - 5) * 2000;
+  }
+  
+  hasilEl.textContent = `Estimasi ongkos kirim: Rp${ongkir.toLocaleString('id-ID')}`;
+}
 </script>
 </body>
 </html>
