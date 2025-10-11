@@ -541,6 +541,26 @@ paymentForm.addEventListener('submit', (e) => {
   renderCartPanel();
   cartPanel.style.display = 'none';
 });
+
+  /* ===== HITUNG ONGKIR ===== */
+function hitungOngkir() {
+  const jarakInput = document.getElementById("jarakInput");
+  const hasilOngkir = document.getElementById("hasilOngkir");
+  const jarak = parseFloat(jarakInput.value);
+
+  if (isNaN(jarak) || jarak <= 0) {
+    hasilOngkir.innerHTML = "⚠️ Masukkan jarak yang benar (dalam km).";
+    return;
+  }
+
+  let ongkir = 8000; // harga dasar 5 km pertama
+  if (jarak > 5) {
+    const tambahan = Math.ceil(jarak - 5);
+    ongkir += tambahan * 2000;
+  }
+
+  hasilOngkir.innerHTML = `🚚 Ongkir untuk jarak ${jarak} km adalah <b>Rp ${ongkir.toLocaleString('id-ID')}</b>`;
+}
 </script>
 </body>
 </html>
