@@ -350,7 +350,7 @@ function updatePaymentArea(){
   if(val === 'Transfer'){
     area.innerHTML = '<p style="font-weight:700">Transfer ke BCA:<br><span style="font-size:1.05rem">1390997651 a/n Desirusmianti</span></p>';
   } else {
-    area.innerHTML = '<p style="font-weight:700">Bayar via QRIS:</p><p><img src="images/qris.svg" style="width:180px;border-radius:8px"></p>';
+    area.innerHTML = '<p style="font-weight:700">Bayar via QRIS:</p><p><img src="qris-cilokgoang.jpeg" style="width:180px;border-radius:8px"></p>';
   }
 }
 document.querySelectorAll('input[name="paymentMethod"]').forEach(r => r.addEventListener('change', updatePaymentArea));
