@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Cilok Goang Teh Desi — Pesan Online</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+    :root{
+      --primary:#ff5722;
+      --accent:#25d366;
+      --bg:#fff8f0;
+    }
+    *{box-sizing:border-box}
+    body{
+      font-family:'Poppins',sans-serif;
+      margin:0;background:var(--bg);color:#222;
+    }
+    header{
+      background:var(--primary);color:#fff;padding:18px 12px;text-align:center;
+    }
+    header .brand {display:flex;gap:12px;align-items:center;justify-content:center}
+    header img.logo{height:56px;width:56px;border-radius:8px;object-fit:cover;box-shadow:0 2px 6px rgba(0,0,0,0.2)}
+    header h1{margin:0;font-size:1.4rem}
+    header p{margin:6px 0 0;font-size:0.95rem;opacity:0.95}
+
+    .container{max-width:1100px;margin:18px auto;padding:0 16px}
+
+    /* promo banner desktop dan mobile */
+    .banner-desktop {
+      display: block;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .banner-desktop img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .banner-mobile {
+      display: none;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .banner-mobile img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    @media (max-width: 768px) {
+      .banner-desktop {
+        display: none;
+      }
+      .banner-mobile {
+        display: block;
+      }
+    }
+
+    /* menu grid */
+    .menu{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+    .card{background:#fff;border-radius:10px;padding:12px;box-shadow:0 4px 10px rgba(0,0,0,0.06);text-align:center;transition:transform .18s}
+    .card:hover{transform:translateY(-6px)}
+    .card img{width:100%;height:150px;object-fit:cover;border-radius:8px}
+    .card h3{margin:8px 0 4px;font-size:1.05rem;color:var(--primary)}
+    .price{font-weight:600;margin-bottom:8px}
+    .card button{background:var(--primary);color:#fff;border:none;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:600}
+    .card button:hover{background:#e64a19}
+
+    /* download */
+    .download{margin:18px 0;text-align:center}
+    .btn-download{background:var(--primary);color:#fff;padding:10px 18px;border-radius:8px;text-decoration:none;font-weight:600;display:inline-block}
+
+    /* platform logos */
+    .platforms{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin:18px 0}
+    .platforms img{width:150px;border-radius:10px;box-shadow:0 3px 8px rgba(0,0,0,0.12);cursor:pointer}
+
+    /* QRIS & bank */
+    .qris{max-width:700px;margin:20px auto;text-align:center}
+    .qris img{width:220px;border-radius:10px}
+    .bank-logos{display:flex;gap:18px;justify-content:center;margin-top:12px}
+    .bank-logos img{width:120px;border-radius:8px;background:#fafafa;padding:8px}
+
+    /* ongkir */
+    .ongkir {
+      margin: 30px 0;
+    }
+    .ongkir input[type=number] {
+      padding: 10px;
+      width: 120px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+    .ongkir button {
+      background: var(--primary);
+      color: #fff;
+      padding: 10px 14px;
+      border: none;
+      border-radius: 8px;
+      margin-left: 8px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .ongkir p {
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-top: 16px;
+    }
+    .ongkir .info {
+      font-size:0.95rem;
+      line-height:1.6;
+      color:#444;
+      background:#fff8f0;
+      padding:10px 14px;
+      border-radius:8px;
+      margin-bottom:18px;
+      text-align:left;
+    }
+
+    /* cart floating */
+    .cart-float{
+      position:fixed;right:18px;top:18px;width:56px;height:56px;background:#fff;border-radius:12px;box-shadow:0 6px 16px rgba(0,0,0,0.18);
+      display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:999;
+    }
+    .cart-float .badge{position:absolute;top:-6px;right:-6px;background:var(--primary);color:#fff;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px}
+
+    /* cart panel/modal */
+    .cart-panel{
+      position:fixed;right:18px;top:86px;width:330px;max-height:70vh;background:#fff;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,0.2);overflow:auto;padding:14px;z-index:999;display:none;
+    }
+    .cart-panel h3{margin:0 0 8px;color:var(--primary)}
+    .cart-item{display:flex;gap:8px;align-items:center;padding:8px;border-bottom:1px dashed #eee}
+    .cart-item:last-child{border-bottom:none}
+    .cart-item .name{flex:1;font-weight:600}
+    .cart-item .qty{display:flex;gap:6px;align-items:center}
+    .cart-item button.small{background:#eee;border:none;padding:6px 8px;border-radius:6px;cursor:pointer}
+    .cart-summary{margin-top:12px;text-align:right;font-weight:700}
+    .cart-actions{display:flex;gap:8px;margin-top:10px}
+    .cart-actions button{flex:1;padding:10px;border-radius:8px;border:none;cursor:pointer;font-weight:700}
+    .btn-checkout{background:var(--accent);color:#fff}
+    .btn-clear{background:#f2f2f2}
+
+    /* responsive */
+    @media (max-width:520px){
+      .cart-panel{right:8px;left:8px;width:auto;top:auto;bottom:16px;max-height:60vh}
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <img class="logo" src="images/placeholder_menu.jpg" alt="Logo Cilok">
+    <div>
+      <h1>Cilok Goang Teh Desi</h1>
+      <p>Rasa Juara, Pedasnya Bikin Nagih!</p>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- Banner Promo Desktop -->
+  <div class="banner-desktop">
+    <img src="cilok bumbu kacang.png" alt="Promo Spesial Desktop">
+  </div>
+
+  <!-- Banner Promo Mobile -->
+  <div class="banner-mobile">
+    <img src="cilok bumbu kacang.png" alt="Promo Spesial Mobile">
+  </div>
+
+  <!-- Menu -->
+  <section>
+    <h2 style="color:var(--primary);text-align:center;margin-top:18px">Menu Unggulan</h2>
+    <div class="menu" id="menuList">
+      <!-- Item akan di-render lewat JS -->
+    </div>
+  </section>
+
+  <!-- Download -->
+  <div class="download">
+    <a class="btn-download" href="menu.pdf" download>📥 Download Menu (PDF)</a>
+  </div>
+
+  <!-- Platform links -->
+  <section style="text-align:center">
+    <h2 style="color:var(--primary)">Pesan di Platform Favorit</h2>
+    <div class="platforms">
+      <a href="https://gofood.co.id/bandung/restaurant/cilok-goang-teh-desi-cimahi-bdf5f39f-21b7-4f84-8c38-33deeed7b509" target="_blank"><img src="gofood.jpg" alt="GoFood"></a>
+      <a href="https://food.grab.com/id/id/restaurant/sample" target="_blank"><img src="grab.jpg" alt="GrabFood"></a>
+      <a href="https://shopee.co.id/universal-link/food/shop/sample" target="_blank"><img src="shopee.jpg" alt="ShopeeFood"></a>
+    </div>
+  </section>
+
+  <!-- QRIS & Bank -->
+  <section class="qris">
+    <h2 style="color:var(--primary)">Metode Pembayaran</h2>
+    <p>Scan QRIS atau transfer melalui bank</p>
+    <img src="qris-cilokgoang.jpg" alt="QRIS Cilok Goang Teh Desi" width="260">
+    <p>Scan QR di atas untuk bayar langsung via QRIS 📱</p>
+    <div class="bank-logos">
+      <img src="bca.png" alt="BCA">
+      <img src="bni.png" alt="BNI">
+    </div>
+  </section>
+
+  <!-- Ongkir -->
+  <section class="ongkir">
+    <h2 style="color:var(--primary)">Cek Ongkir Pengantaran</h2>
+
+    <p class="info">
+      💡 <b>Cara cek jarak:</b><br>
+      1️⃣ Buka aplikasi <b>Google Maps</b> atau <b>Waze</b>.<br>
+      2️⃣ Ketik <b>"Cilok Goang Teh Desi"</b> di kolom pencarian.<br>
+      3️⃣ Pilih menu <b>Rute</b> dan masukkan alamat rumah kamu.<br>
+      4️⃣ Lihat jarak dalam satuan <b>km</b> dari rumah ke gerai.<br><br>
+      Setelah tahu jaraknya, masukkan angkanya di kolom cek ongkir untuk menghitung ongkir otomatis 🚚
+    </p>
+
+    <p>Masukkan jarak dari lokasi kami (km):</p>
+    <input id="jarakInput" type="number" placeholder="contoh: 6" min="0">
+    <button onclick="hitungOngkir()">Hitung</button>
+    <p id="hasilOngkir"></p>
+  </section>
+</div>
+
+<!-- Cart floating button -->
+<div class="cart-float" id="cartBtn" title="Lihat Keranjang">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M6 6h15l-1.68 8.39A2 2 0 0 1 17.36 16H8.64a2 2 0 0 1-1.96-1.61L5 2H2" stroke="#333" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <div class="badge" id="cartCount">0</div>
+</div>
+
+<!-- Cart panel -->
+<div class="cart-panel" id="cartPanel" aria-hidden="true">
+  <h3>Keranjang Anda</h3>
+  <div id="cartItems"></div>
+  <div class="cart-summary" id="cartTotal">Total: Rp0</div>
+  <div class="cart-actions">
+    <button class="btn-clear" id="clearCart">Kosongkan</button>
+    <button class="btn-checkout" id="checkoutBtn">Checkout via WhatsApp</button>
+  </div>
+</div>
+
+<!-- Floating WhatsApp contact -->
+<a class="whatsapp-float" href="https://wa.me/6281212629516" target="_blank" title="Chat Teh Desi">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA" style="width:50px;height:50px">
+</a>
+
+<script>
+/* ===== DATA MENU ===== */
+const MENU = [
+  { id: 'm1', name: 'Paket Hemat 1', price: 27000, img:'images/placeholder_menu.jpg' },
+  { id: 'm2', name: 'Paket Hemat 2', price: 27000, img:'images/placeholder_menu.jpg' },
+  { id: 'm3', name: 'Paket Hemat 3', price: 25000, img:'images/placeholder_menu.jpg' },
+  { id: 'm4', name: 'Cilok Goang Tulang', price: 17000, img:'images/placeholder_menu.jpg' },
+  { id: 'm5', name: 'Cilok Goang Tofu Sehah', price: 16000, img:'images/placeholder_menu.jpg' },
+  { id: 'm6', name: 'Cilok Granat', price: 14000, img:'images/placeholder_menu.jpg' },
+  { id: 'm7', name: 'Cilok Goang Sambal Ijo', price: 14000, img:'images/placeholder_menu.jpg' },
+  { id: 'm8', name: 'Cilok Goang Ceker Sambal Ijo', price: 17000, img:'images/placeholder_menu.jpg' },
+  { id: 'm9', name: 'Cilok Kuah Boncabe', price: 16000, img:'images/placeholder_menu.jpg' },
+  { id: 'm10', name: 'Mie Cilok Goang', price: 16000, img:'images/placeholder_menu.jpg' },
+  { id: 'm11', name: 'Cilok Goang Ceker Pedas', price: 18000, img:'images/placeholder_menu.jpg' },
+  { id: 'm12', name: 'Cilok Kuah Endolita', price: 14000, img:'images/placeholder_menu.jpg' },
+  { id: 'm13', name: 'Seblak Kerupuk Endolita', price: 16000, img:'images/placeholder_menu.jpg' },
+  { id: 'm14', name: 'Seblak Mie kuah Telur Pedas', price: 14000, img:'images/placeholder_menu.jpg' },
+  { id: 'm15', name: 'Seblok Endolita', price: 13500, img:'images/placeholder_menu.jpg' },
+  { id: 'm16', name: 'Seblok Ceker Endolita', price: 17000, img:'images/placeholder_menu.jpg' },
+  { id: 'm17', name: 'Seblak Kerupuk Rafael', price: 17000, img:'images/placeholder_menu.jpg' },
+  { id: 'm18', name: 'seblak 4 Varian', price: 17000, img:'images/placeholder_menu.jpg' },
+  { id: 'm19', name: 'Seblak 5 Varian', price: 19000, img:'images/placeholder_menu.jpg' },
+  { id: 'm20', name: 'Seblak 6 Varian', price: 22000, img:'images/placeholder_menu.jpg' },
+  { id: 'm21', name: 'Cilok Goreng Asin Keju', price: 15000, img:'images/placeholder_menu.jpg' },
+  { id: 'm22', name: 'Cilok Goreng Keju Balado', price: 15000, img:'images/placeholder_menu.jpg' },
+  { id: 'm23', name: 'Cilok Goreng Jagung Bakar', price: 15000, img:'images/placeholder_menu.jpg' },
+  { id: 'm24', name: 'CIGO Cilok Goang Setan Merah', price: 15000, img:'images/placeholder_menu.jpg' },
+  { id: 'm25', name: 'Cilok Goreng Manis Pedas', price: 15000, img:'images/placeholder_menu.jpg' },
+  { id: 'm26', name: 'Cilok Goreng Asin Pedas', price: 14000, img:'images/placeholder_menu.jpg' },
+  { id: 'm27', name: 'Cilok GOANG Sambal Ijo', price: 15000, img:'images/placeholder_menu.jpg' },
+  { id: 'm28', name: 'Cilok Bumbu Kacang Lumer', price: 14000, img:'images/placeholder_menu.jpg' },
+  { id: 'm29', name: 'Cilok Goreng Telur Puyuh', price: 15000, img:'images/placeholder_menu.jpg' },
+  { id: 'm30', name: 'Cilok Goreng Crispy', price: 15000, img:'images/placeholder_menu.jpg' },
+  { id: 'm31', name: 'Rujak Cireng', price: 14000, img:'images/placeholder_menu.jpg' },
+  { id: 'm32', name: 'Cireng Bumbu Kacang', price: 15000, img:'images/placeholder_menu.jpg' },
+  { id: 'm33', name: 'Cireng Isi Ayam Suir', price: 15000, img:'images/placeholder_menu.jpg' },
+  { id: 'm34', name: 'Cireng Bajur Mantul', price: 14000, img:'images/placeholder_menu.jpg' },
+  { id: 'm35', name: 'Cilok Goang INSTAN KOMPLIT', price: 17000, img:'images/placeholder_menu.jpg' },
+  { id: 'm36', name: 'Cilik GOANG Sambal Ijo', price: 15000, img:'images/placeholder_menu.jpg' },
+  { id: 'm37', name: 'Cilik GOANG Sambal Ijo', price: 15000, img:'images/placeholder_menu.jpg' },
+  { id: 'm38', name: 'Cilik GOANG Sambal Ijo', price: 15000, img:'images/placeholder_menu.jpg' },
+  { id: 'm39', name: 'Cilik GOANG Sambal Ijo', price: 15000, img:'images/placeholder_menu.jpg' },
+  { id: 'm40', name: 'Cilik GOANG Sambal Ijo', price: 15000, img:'images/placeholder_menu.jpg' },
+  { id: 'm41', name: 'Cilik GOANG Sambal Ijo', price: 15000, img:'images/placeholder_menu.jpg' },
+  { id: 'm42', name: 'Makroni Ngoonah Pedes Sedang', price: 8000, img:'images/placeholder_menu.jpg' },
+  { id: 'm43', name: 'Makroni Ngoonah Pedes Banget', price: 8000, img:'images/placeholder_menu.jpg' },
+  { id: 'm44', name: 'Makroni Ngoonah ORIGINAL', price: 8000, img:'images/placeholder_menu.jpg' },
+  { id: 'm45', name: 'jUS jeruk Peras', price: 12000, img:'images/placeholder_menu.jpg' },
+  { id: 'm46', name: 'Es Lemon Tea', price: 12000, img:'images/placeholder_menu.jpg' },
+  { id: 'm47', name: 'Capuchino Cincau', price: 12000, img:'images/placeholder_menu.jpg' },
+  { id: 'm48', name: 'Thai Teaa', price: 12000, img:'images/placeholder_menu.jpg' },
+  { id: 'm49', name: 'Green Tea', price: 12000, img:'images/placeholder_menu.jpg' }
+];
+
+/* ===== STATE KERANJANG ===== */
+let cart = JSON.parse(localStorage.getItem('cg_cart')||'[]');
+
+/* ===== HELPERS ===== */
+const rupiah = n => 'Rp' + n.toLocaleString('id-ID');
+
+function saveCart(){
+  localStorage.setItem('cg_cart', JSON.stringify(cart));
+  renderCartCount();
+}
+
+/* ===== RENDER MENU ===== */
+const menuList = document.getElementById('menuList');
+function renderMenu(){
+  menuList.innerHTML = '';
+  MENU.forEach(item=>{
+    const div = document.createElement('div');
+    div.className = 'card';
+    div.innerHTML = `
+      <img src="${item.img}" alt="${item.name}">
+      <h3>${item.name}</h3>
+      <div class="price">${rupiah(item.price)}</div>
+      <button onclick="addToCart('${item.id}')">Tambah ke Keranjang 🛒</button>
+    `;
+    menuList.appendChild(div);
+  });
+}
+renderMenu();
+
+/* ===== ADD TO CART ===== */
+function addToCart(id){
+  const menuItem = MENU.find(m => m.id === id);
+  if(!menuItem) return;
+  const found = cart.find(c => c.id === id);
+  if(found) found.qty++;
+  else cart.push({ id:menuItem.id, name:menuItem.name, price:menuItem.price, qty:1 });
+  saveCart();
+  renderCartPanel();
+  showCartPanel();
+}
+
+/* ===== RENDER CART COUNT ===== */
+function renderCartCount(){
+  const count = cart.reduce((s,i)=>s+i.qty,0);
+  document.getElementById('cartCount').textContent = count;
+}
+renderCartCount();
+
+/* ===== CART PANEL UI ===== */
+const cartBtn = document.getElementById('cartBtn');
+const cartPanel = document.getElementById('cartPanel');
+const cartItemsEl = document.getElementById('cartItems');
+const cartTotalEl = document.getElementById('cartTotal');
+
+cartBtn.addEventListener('click', ()=> {
+  if(cartPanel.style.display === 'block') cartPanel.style.display = 'none';
+  else showCartPanel();
+});
+
+function showCartPanel(){
+  renderCartPanel();
+  cartPanel.style.display = 'block';
+  cartPanel.setAttribute('aria-hidden','false');
+}
+
+function renderCartPanel(){
+  cartItemsEl.innerHTML = '';
+  if(cart.length===0){
+    cartItemsEl.innerHTML = '<p style="padding:8px;color:#666">Keranjang masih kosong.</p>';
+    cartTotalEl.textContent = 'Total: Rp0';
+    renderCartCount();
+    saveCart();
+    return;
+  }
+  let total = 0;
+  cart.forEach((it, idx)=>{
+    const sub = it.price * it.qty;
+    total += sub;
+    const node = document.createElement('div');
+    node.className = 'cart-item';
+    node.innerHTML = `
+      <div class="name">${it.name}</div>
+      <div style="min-width:110px;text-align:right">
+        <div style="font-weight:600">${rupiah(it.price)}</div>
+        <div class="qty" style="margin-top:6px;justify-content:flex-end">
+          <button class="small" onclick="changeQty(${idx}, -1)">-</button>
+          <span style="padding:0 8px">${it.qty}</span>
+          <button class="small" onclick="changeQty(${idx}, 1)">+</button>
+          <button class="small" style="margin-left:8px;background:#ff5252;color:#fff" onclick="removeItem(${idx})">Hapus</button>
+        </div>
+      </div>
+    `;
+    cartItemsEl.appendChild(node);
+  });
+  cartTotalEl.textContent = `Total: ${rupiah(total)}`;
+  renderCartCount();
+  saveCart();
+}
+
+/* ===== UBAH JUMLAH / HAPUS ===== */
+function changeQty(index, delta){
+  cart[index].qty += delta;
+  if(cart[index].qty <= 0) cart.splice(index,1);
+  renderCartPanel();
+}
+
+function removeItem(index){
+  cart.splice(index,1);
+  renderCartPanel();
+}
+
+/* ===== CLEAR CART ===== */
+document.getElementById('clearCart').addEventListener('click', function(){
+  if(confirm('Kosongkan keranjang?')){ cart = []; saveCart(); renderCartPanel(); cartPanel.style.display='none'; }
+});
+
+/* ===== CHECKOUT VIA WHATSAPP ===== */
+document.getElementById('checkoutBtn').addEventListener('click', function(){
+  if(cart.length === 0){ alert('Keranjang kosong — tambahkan menu dulu.'); return; }
+  let pesan = 'Halo Teh Desi%0A%0ASaya mau pesan:%0A';
+  let total = 0;
+  cart.forEach(it=>{
+    const sub = it.price * it.qty;
+    total += sub;
+    pesan += `- ${it.name} x${it.qty} = ${rupiah(it.price * it.qty)}%0A`;
+  });
+  pesan += `%0ATotal: ${rupiah(total)}%0A%0AAlamat / catatan: `;
+  const wa = 'https://wa.me/6281212629516?text=' + encodeURIComponent(pesan);
+  window.open(wa, '_blank');
+
+  cart = [];
+  saveCart();
+  renderCartPanel();
+  cartPanel.style.display = 'none';
+  alert('Pesanan dibuka di WhatsApp. Silakan kirim pesanan melalui chat.');
+});
+
+/* ===== CEK ONGKIR ===== */
+function hitungOngkir(){
+  const jarak = parseFloat(document.getElementById('jarakInput').value);
+  const hasilEl = document.getElementById('hasilOngkir');
+  
+  if(isNaN(jarak) || jarak < 0){
+    hasilEl.textContent = 'Masukkan jarak yang valid.';
+    return;
+  }
+  
+  let ongkir = 8000;
+  if(jarak > 5){
+    ongkir += Math.ceil(jarak - 5) * 2000;
+  }
+  
+  hasilEl.textContent = `Estimasi ongkos kirim: Rp${ongkir.toLocaleString('id-ID')}`;
+}
+</script>
+</body>
+</html>
