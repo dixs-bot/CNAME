@@ -448,7 +448,158 @@ checkoutForm.addEventListener('submit', (e) => {
 /* init render */
 renderCartPanel();
 
-</script>
+/* ===== FITUR VOUCHER 🎁 DENGAN ANIMASI ===== */
 
+// Tambahkan elemen tombol kado
+const giftBtn = document.createElement('button');
+giftBtn.innerHTML = '🎁<br><span style="font-size:13px">Buka Kado</span>';
+giftBtn.style.cssText = `
+  position:fixed;right:18px;bottom:100px;
+  background:#ff7043;color:#fff;border:none;
+  padding:12px 14px;border-radius:16px;
+  box-shadow:0 6px 18px rgba(0,0,0,0.18);
+  cursor:pointer;font-weight:700;z-index:999;
+  text-align:center;transition:transform 0.2s;
+`;
+document.body.appendChild(giftBtn);
+
+let voucherValue = 0;
+let voucherUsed = false;
+
+// efek confetti ringan
+function confettiEffect() {
+  const count = 25;
+  for(let i=0;i<count;i++){
+    const conf = document.createElement('div');
+    conf.style.position = 'fixed';
+    conf.style.width = '6px';
+    conf.style.height = '6px';
+    conf.style.borderRadius = '50%';
+    conf.style.background = ['#ff7043','#ffca28','#66bb6a','#42a5f5'][Math.floor(Math.random()*4)];
+    conf.style.top = (giftBtn.getBoundingClientRect().top + 15) + 'px';
+    conf.style.left = (giftBtn.getBoundingClientRect().left + 30) + 'px';
+    conf.style.zIndex = 10000;
+    conf.style.opacity = 1;
+    document.body.appendChild(conf);
+
+    const angle = Math.random() * 2 * Math.PI;
+    const distance = 60 + Math.random() * 60;
+    const dx = Math.cos(angle) * distance;
+    const dy = Math.sin(angle) * distance;
+
+    conf.animate([
+      { transform:`translate(0,0)`, opacity:1 },
+      { transform:`translate(${dx}px,${dy}px)`, opacity:0 }
+    ], { duration:800 + Math.random()*400, easing:'ease-out' });
+
+    setTimeout(()=>conf.remove(), 1000);
+  }
+}
+
+giftBtn.addEventListener('click', () => {
+  if(voucherUsed){
+    alert('🎫 Voucher sudah digunakan di transaksi ini.');
+    return;
+  }
+
+  // efek gemetar kecil
+  giftBtn.style.transform = 'rotate(-8deg)';
+  setTimeout(()=>giftBtn.style.transform='rotate(8deg)',100);
+  setTimeout(()=>giftBtn.style.transform='rotate(0)',200);
+
+  confettiEffect(); // keluarkan confetti
+
+  // cek total belanja
+  const totalBelanja = cart.reduce((s,i)=>s+(i.price*i.qty),0);
+  if(totalBelanja > 50000){
+    voucherValue = 5000;
+  } else {
+    const opsi = [1000,1500,2000,2500,3000,3500];
+    voucherValue = opsi[Math.floor(Math.random()*opsi.length)];
+  }
+
+  setTimeout(()=>{
+    alert(`🎉 Selamat! Kamu dapat voucher potongan Rp${voucherValue.toLocaleString('id-ID')} untuk pembelian kali ini!`);
+    voucherUsed = true;
+    renderCartPanel();
+  }, 400);
+});
+
+// tampilkan potongan di ringkasan keranjang
+function renderCartPanel(){
+  cartItemsEl.innerHTML = '';
+  if(cart.length === 0){
+    cartItemsEl.innerHTML = '<p style="color:#666">Keranjang kosong.</p>'; 
+    cartTotalEl.textContent = 'Total: Rp0';
+    renderCartCount(); 
+    return;
+  }
+
+  let total = 0;
+  cart.forEach((it, idx) => {
+    const sub = it.price * it.qty;
+    total += sub;
+    const node = document.createElement('div');
+    node.className = 'cart-item';
+    node.innerHTML = `
+      <div class="name">${it.name}</div>
+      <div style="min-width:120px;text-align:right">
+        <div style="font-weight:700">${rupiah(it.price)}</div>
+        <div style="margin-top:6px;display:flex;gap:6px;justify-content:flex-end">
+          <button class="small-btn" onclick="changeQty(${idx},-1)">-</button>
+          <span style="padding:0 8px">${it.qty}</span>
+          <button class="small-btn" onclick="changeQty(${idx},1)">+</button>
+        </div>
+      </div>
+    `;
+    cartItemsEl.appendChild(node);
+  });
+
+  let totalSetelahVoucher = total;
+  if(voucherUsed && voucherValue > 0){
+    totalSetelahVoucher = Math.max(0, total - voucherValue);
+  }
+
+  cartTotalEl.innerHTML = `
+    Subtotal: ${rupiah(total)}<br>
+    ${voucherUsed ? `<span style="color:green">🎁 Voucher: -${rupiah(voucherValue)}</span><br>` : ''}
+    <b>Total: ${rupiah(totalSetelahVoucher)}</b>
+  `;
+  saveCart();
+  renderCartCount();
+}
+
+// sertakan voucher di WhatsApp order
+checkoutForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const pay = document.querySelector('input[name="paymentMethod"]:checked')?.value || 'Transfer';
+  const ship = document.querySelector('input[name="shipping"]:checked')?.value || 'Shopee';
+  let subtotal = 0;
+  let pesan = 'Halo Teh Desi\n\nSaya mau pesan:\n';
+  cart.forEach(it => {
+    const sub = it.price * it.qty;
+    subtotal += sub;
+    pesan += `- ${it.name} x${it.qty} = Rp${sub.toLocaleString('id-ID')}\n`;
+  });
+  let jarVal = parseFloat(document.getElementById('jarakInputModal')?.value || 0);
+  let ongkir = 0;
+  if(ship !== 'Pickup'){
+    if(isNaN(jarVal) || jarVal <= 0){ alert('Masukkan jarak (km) untuk estimasi ongkir.'); return; }
+    ongkir = kalkulasiOngkir(ship, jarVal);
+  }
+  let totalAkhir = subtotal + ongkir - (voucherUsed ? voucherValue : 0);
+  pesan += `\nMetode Pengiriman: ${ship}\nEstimasi Ongkir: Rp${ongkir.toLocaleString('id-ID')}\nMetode Pembayaran: ${pay}\nVoucher: -Rp${(voucherUsed?voucherValue:0).toLocaleString('id-ID')}\nTotal: Rp${totalAkhir.toLocaleString('id-ID')}\n\nAlamat / Catatan: `;
+  const waUrl = 'https://wa.me/6281212629516?text=' + encodeURIComponent(pesan);
+  window.open(waUrl, '_blank');
+
+  // reset
+  cart = [];
+  voucherUsed = false;
+  voucherValue = 0;
+  saveCart();
+  renderCartPanel();
+  modal.style.display = 'none';
+});
+</script>
 </body>
 </html>
