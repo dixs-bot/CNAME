@@ -8,34 +8,11 @@
   <meta name="keywords" content="cilok cimahi, cilok pedas, cilok goang, teh desi, seblak, gofood, shopeefood, grabfood" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://dixs-bot.github.io/Vmenu/" />
-  <!-- Open Graph -->
   <meta property="og:title" content="Cilok Goang Teh Desi Cimahi" />
   <meta property="og:description" content="Rasa Juara, Pedasnya Bikin Nagih! Pesan online via Shopee, GoFood, Grab atau WA." />
   <meta property="og:image" content="images/logocilok.png" />
   <meta property="og:url" content="https://dixs-bot.github.io/Vmenu/" />
   <meta property="og:type" content="restaurant" />
-
-  <!-- JSON-LD Restaurant -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Restaurant",
-    "name": "Cilok Goang Teh Desi",
-    "image": "https://dixs-bot.github.io/Vmenu/logocilok.png",
-    "url": "https://dixs-bot.github.io/Vmenu/",
-    "telephone": "+6281212629516",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "Wisma Agung Jl KH Usman Dhomiri RT 02 RW 17, Kel. Padasuka",
-      "addressLocality": "Cimahi",
-      "addressRegion": "Jawa Barat",
-      "postalCode": "40526",
-      "addressCountry": "ID"
-    },
-    "openingHours": "Mo-Su 09:00-24:00",
-    "servesCuisine": ["Cilok","Seblak","Street Food"]
-  }
-  </script>
 
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
@@ -63,7 +40,6 @@
     .card button{background:var(--primary);color:#fff;border:none;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:700}
     .card button:hover{background:#e64a19}
     .platforms{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:18px 0}
-    .platforms a{display:inline-flex;align-items:center;gap:10px;padding:8px 12px;border-radius:10px;text-decoration:none;color:inherit}
     .platforms img{width:120px;border-radius:10px;box-shadow:0 6px 16px rgba(0,0,0,0.08)}
     .cart-float{position:fixed;right:18px;top:18px;width:76px;height:76px;background:#fff;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,0.18);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:999}
     .cart-float .badge{position:absolute;top:-6px;right:-6px;background:var(--primary);color:#fff;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px}
@@ -89,7 +65,32 @@
     .ship-grab{background:#00b14f;color:#fff}
     .ship-pickup{background:#6b7280;color:#fff}
     .footer-note{font-size:0.95rem;color:var(--muted);margin-top:10px}
-    @media(max-width:520px){ .cart-panel{right:8px;left:8px;width:auto;top:auto;bottom:16px} .form-row {flex-direction:column;align-items:stretch} }
+
+    /* tombol kado: posisikan tepat di bawah cart-float (top: 110px keeps it under the cart button) */
+    .gift-btn {
+      position: fixed;
+      right: 18px;
+      top: 110px; /* berada di bawah cart-float yang berada di top:18 (cart panel opening starts at 110) */
+      background:#ff7043;
+      color:#fff;
+      border:none;
+      padding:10px 12px;
+      border-radius:16px;
+      box-shadow:0 6px 18px rgba(0,0,0,0.18);
+      cursor:pointer;
+      font-weight:800;
+      z-index:999;
+      text-align:center;
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+
+    @media(max-width:520px){
+      .cart-panel{right:8px;left:8px;width:auto;top:auto;bottom:16px}
+      .gift-btn{right:12px; top: 100px}
+      .form-row {flex-direction:column;align-items:stretch}
+    }
   </style>
 </head>
 <body>
@@ -115,12 +116,19 @@
   <div style="text-align:center;margin-top:18px">
     <a style="background:var(--primary);color:#fff;padding:10px 16px;border-radius:8px;text-decoration:none;font-weight:700" href="menu.pdf" download>📥 Download Menu (PDF)</a>
   </div>
+</div>
 
 <!-- Cart floating -->
 <div class="cart-float" id="cartBtn" title="Lihat Keranjang">
   <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M6 6h15l-1.68 8.39A2 2 0 0 1 17.36 16H8.64a2 2 0 0 1-1.96-1.61L5 2H2" stroke="#333" stroke-width="1.2" stroke-linecap="round"/></svg>
   <div class="badge" id="cartCount">0</div>
 </div>
+
+<!-- Gift button (di bawah cart) -->
+<button id="giftBtn" class="gift-btn" title="Buka Kado — dapatkan voucher!">
+  <span style="font-size:18px">🎁</span>
+  <span style="font-size:13px;line-height:1">Buka Kado</span>
+</button>
 
 <!-- Cart panel -->
 <div class="cart-panel" id="cartPanel" aria-hidden="true">
@@ -157,7 +165,6 @@
       </div>
 
       <div id="shippingBlock" style="margin-top:12px">
-        <!-- Isi dinamis: jika Pickup -> no ongkir; else input jarak & tombol hitung -->
         <div class="form-row">
           <label style="min-width:150px;font-weight:600">Masukkan jarak (km)</label>
           <input id="jarakInputModal" type="number" min="0" placeholder="contoh: 6">
@@ -194,48 +201,49 @@
 <script>
 /* ===== DATA MENU (sesuaikan / tambah item di sini) ===== */
 const MENU = [
-  { id: 'm1', name: 'Paket Hemat 1', price: 15000, img:'hemat 1.jpg' },
-  { id: 'm2', name: 'Paket Hemat 2', price: 15000, img:'hemat 2.jpg' },
-  { id: 'm3', name: 'Paket Hemat 3', price: 13000, img:'paket 3.jpg' },
-  { id: 'm4', name: 'Cilok Goang Tulang', price: 12000, img:'cilok goang tulang.jpg' },
-  { id: 'm5', name: 'Cilok Goang Tofu Sehah', price: 10000, img:'tofu.jpg' },
-  { id: 'm6', name: 'Cilok Granat', price: 10000, img:'cilok granat.jpg' },
-  { id: 'm7', name: 'Cilok Goang Sambal Ijo', price: 10000, img:'cilok goang sambal ijo.jpg' },
-  { id: 'm8', name: 'Cilok Goang Ceker Sambal Ijo', price: 12000, img:'cilok goang ceker samal ijo.jpg' },
-  { id: 'm9', name: 'Cilok Kuah Boncabe', price: 10000, img:'cilok kuah endolita.jpg' },
-  { id: 'm10', name: 'Mie Cilok Goang', price: 10000, img:'mie cilok goang.jpg' },
-  { id: 'm11', name: 'Cilok Goang Ceker Pedas', price: 12000, img:'cilok kuah ceker pedas.jpg' },
-  { id: 'm12', name: 'Cilok Kuah Endolita', price: 10000, img:'cilok kuah endolita.jpg' },
-  { id: 'm13', name: 'Seblak Kerupuk Endolita', price: 10000, img:'seblak kerupuk.jpg' },
-  { id: 'm14', name: 'Seblak Mie kuah Telur Pedas', price: 10000, img:'seblak mie.jpg' },
-  { id: 'm15', name: 'Seblok Endolita', price: 10000, img:'seblok cilok.jpg' },
-  { id: 'm16', name: 'Seblok Ceker Endolita', price: 15000, img:'seblok.jpg' },
-  { id: 'm17', name: 'Seblak Kerupuk Rafael', price: 12000, img:'rafael.jpg' },
-  { id: 'm18', name: 'Seblak 4 Varian', price: 10000, img:'seblak 4.jpg' },
-  { id: 'm19', name: 'Seblak 5 Varian', price: 12000, img:'seblak 5.jpg' },
-  { id: 'm20', name: 'Seblak 6 Varian', price: 15000, img:'seblak 6.jpg' },
-  { id: 'm21', name: 'Cilok Goreng Asin Keju', price: 10000, img:'asin keju.jpg' },
-  { id: 'm22', name: 'Cilok Goreng Keju Balado', price: 10000, img:'cilok balado.jpg' },
-  { id: 'm23', name: 'Cilok Goreng Jagung Bakar', price: 10000, img:'jagung bakar.jpg' },
-  { id: 'm24', name: 'CIGO Cilok Goang Setan Merah', price: 10000, img:'setan merah.jpg' },
-  { id: 'm25', name: 'Cilok Goreng Manis Pedas', price: 10000, img:'cilok goreng manis pedas.jpg' },
-  { id: 'm26', name: 'Cilok Goreng Asin Pedas', price: 10000, img:'cilok goreng asin pedas.jpg' },
-  { id: 'm28', name: 'Cilok Bumbu Kacang Lumer', price: 10000, img:'cilok bumbu kacang.jpg' },
-  { id: 'm29', name: 'Cilok Goreng Telur Puyuh', price: 10000, img:'cilok crispy telor puyuh.jpg' },
-  { id: 'm30', name: 'Cilok Goreng Crispy', price: 10000, img:'cilok goreng crispy.jpg' },
-  { id: 'm31', name: 'Rujak Cireng', price: 10000, img:'cireng banjur.jpg' },
-  { id: 'm32', name: 'Cireng Bumbu Kacang', price: 10000, img:'cireng bumbu kacang.jpg' },
-  { id: 'm33', name: 'Cireng Isi Ayam Suir', price: 10000, img:'cireng isi suwir ayam.jpg' },
-  { id: 'm34', name: 'Cireng Bajur Mantul', price: 10000, img:'cireng banjur.jpg' },
-  { id: 'm35', name: 'Cilok Goang INSTAN KOMPLIT', price: 12000, img:'instan koplit.jpg' },
-  { id: 'm42', name: 'Makroni Ngoonah Pedes Sedang', price: 5000, img:'makroni pedes sedang.jpg' },
-  { id: 'm43', name: 'Makroni Ngoonah Pedes Banget', price: 5000, img:'makroni pedas daun jeruk.jpg' },
-  { id: 'm44', name: 'Makroni Ngoonah ORIGINAL', price: 5000, img:'makroni original.jpg' },
-  { id: 'm45', name: 'Jus Jeruk Peras', price: 6000, img:'es jeruk.jpg' },
-  { id: 'm46', name: 'Es Lemon Tea', price: 6000, img:'lemon tea.jpg' },
-  { id: 'm47', name: 'Capuccino Cincau', price: 6000, img:'capucino cincau.jpeg' },
-  { id: 'm48', name: 'Thai Tea', price: 6000, img:'thai tea.jpeg' },
-  { id: 'm49', name: 'Green Tea', price: 6000, img:'green tea.jpg' }
+  { id: 'm1', name: 'Paket Hemat 1', price: 27000, img:'images/placeholder_menu.jpg' },
+  { id: 'm2', name: 'Paket Hemat 2', price: 27000, img:'images/placeholder_menu.jpg' },
+  { id: 'm3', name: 'Paket Hemat 3', price: 25000, img:'images/placeholder_menu.jpg' },
+  { id: 'm4', name: 'Cilok Goang Tulang', price: 17000, img:'images/placeholder_menu.jpg' },
+  { id: 'm5', name: 'Cilok Goang Tofu Sehah', price: 16000, img:'images/placeholder_menu.jpg' },
+  { id: 'm6', name: 'Cilok Granat', price: 14000, img:'images/placeholder_menu.jpg' },
+  { id: 'm7', name: 'Cilok Goang Sambal Ijo', price: 14000, img:'images/placeholder_menu.jpg' },
+  { id: 'm8', name: 'Cilok Goang Ceker Sambal Ijo', price: 17000, img:'images/placeholder_menu.jpg' },
+  { id: 'm9', name: 'Cilok Kuah Boncabe', price: 16000, img:'images/placeholder_menu.jpg' },
+  { id: 'm10', name: 'Mie Cilok Goang', price: 16000, img:'images/placeholder_menu.jpg' },
+  { id: 'm11', name: 'Cilok Goang Ceker Pedas', price: 18000, img:'images/placeholder_menu.jpg' },
+  { id: 'm12', name: 'Cilok Kuah Endolita', price: 14000, img:'images/placeholder_menu.jpg' },
+  { id: 'm13', name: 'Seblak Kerupuk Endolita', price: 16000, img:'images/placeholder_menu.jpg' },
+  { id: 'm14', name: 'Seblak Mie kuah Telur Pedas', price: 14000, img:'images/placeholder_menu.jpg' },
+  { id: 'm15', name: 'Seblok Endolita', price: 13500, img:'images/placeholder_menu.jpg' },
+  { id: 'm16', name: 'Seblok Ceker Endolita', price: 17000, img:'images/placeholder_menu.jpg' },
+  { id: 'm17', name: 'Seblak Kerupuk Rafael', price: 17000, img:'images/placeholder_menu.jpg' },
+  { id: 'm18', name: 'Seblak 4 Varian', price: 17000, img:'images/placeholder_menu.jpg' },
+  { id: 'm19', name: 'Seblak 5 Varian', price: 19000, img:'images/placeholder_menu.jpg' },
+  { id: 'm20', name: 'Seblak 6 Varian', price: 22000, img:'images/placeholder_menu.jpg' },
+  { id: 'm21', name: 'Cilok Goreng Asin Keju', price: 15000, img:'images/placeholder_menu.jpg' },
+  { id: 'm22', name: 'Cilok Goreng Keju Balado', price: 15000, img:'images/placeholder_menu.jpg' },
+  { id: 'm23', name: 'Cilok Goreng Jagung Bakar', price: 15000, img:'images/placeholder_menu.jpg' },
+  { id: 'm24', name: 'CIGO Cilok Goang Setan Merah', price: 15000, img:'images/placeholder_menu.jpg' },
+  { id: 'm25', name: 'Cilok Goreng Manis Pedas', price: 15000, img:'images/placeholder_menu.jpg' },
+  { id: 'm26', name: 'Cilok Goreng Asin Pedas', price: 14000, img:'images/placeholder_menu.jpg' },
+  { id: 'm27', name: 'Cilok Goang Sambal Ijo', price: 15000, img:'images/placeholder_menu.jpg' },
+  { id: 'm28', name: 'Cilok Bumbu Kacang Lumer', price: 14000, img:'images/placeholder_menu.jpg' },
+  { id: 'm29', name: 'Cilok Goreng Telur Puyuh', price: 15000, img:'images/placeholder_menu.jpg' },
+  { id: 'm30', name: 'Cilok Goreng Crispy', price: 15000, img:'images/placeholder_menu.jpg' },
+  { id: 'm31', name: 'Rujak Cireng', price: 14000, img:'images/placeholder_menu.jpg' },
+  { id: 'm32', name: 'Cireng Bumbu Kacang', price: 15000, img:'images/placeholder_menu.jpg' },
+  { id: 'm33', name: 'Cireng Isi Ayam Suir', price: 15000, img:'images/placeholder_menu.jpg' },
+  { id: 'm34', name: 'Cireng Bajur Mantul', price: 14000, img:'images/placeholder_menu.jpg' },
+  { id: 'm35', name: 'Cilok Goang INSTAN KOMPLIT', price: 17000, img:'images/placeholder_menu.jpg' },
+  { id: 'm42', name: 'Makroni Ngoonah Pedes Sedang', price: 8000, img:'images/placeholder_menu.jpg' },
+  { id: 'm43', name: 'Makroni Ngoonah Pedes Banget', price: 8000, img:'images/placeholder_menu.jpg' },
+  { id: 'm44', name: 'Makroni Ngoonah ORIGINAL', price: 8000, img:'images/placeholder_menu.jpg' },
+  { id: 'm45', name: 'Jus Jeruk Peras', price: 12000, img:'images/placeholder_menu.jpg' },
+  { id: 'm46', name: 'Es Lemon Tea', price: 12000, img:'images/placeholder_menu.jpg' },
+  { id: 'm47', name: 'Capuchino Cincau', price: 12000, img:'images/placeholder_menu.jpg' },
+  { id: 'm48', name: 'Thai Tea', price: 12000, img:'images/placeholder_menu.jpg' },
+  { id: 'm49', name: 'Green Tea', price: 12000, img:'images/placeholder_menu.jpg' }
 ];
 
 /* ===== STATE ===== */
@@ -289,10 +297,19 @@ cartBtn.addEventListener('click', ()=> {
 });
 
 function showCartPanel(){ renderCartPanel(); cartPanel.style.display='block'; cartPanel.setAttribute('aria-hidden','false'); }
+
+/* ===== VOUCHER STATE ===== */
+let voucherValue = 0;
+let voucherUsed = false;
+
+/* ===== RENDER CART PANEL (satu fungsi terpusat, menampilkan voucher jika ada) ===== */
 function renderCartPanel(){
   cartItemsEl.innerHTML = '';
   if(cart.length === 0){
-    cartItemsEl.innerHTML = '<p style="color:#666">Keranjang kosong.</p>'; cartTotalEl.textContent = 'Total: Rp0'; renderCartCount(); return;
+    cartItemsEl.innerHTML = '<p style="color:#666">Keranjang kosong.</p>';
+    cartTotalEl.textContent = 'Total: Rp0';
+    renderCartCount();
+    return;
   }
   let total = 0;
   cart.forEach((it, idx) => {
@@ -313,18 +330,29 @@ function renderCartPanel(){
     `;
     cartItemsEl.appendChild(node);
   });
-  cartTotalEl.textContent = `Total: ${rupiah(total)}`;
+
+  let totalSetelahVoucher = total;
+  if(voucherUsed && voucherValue > 0){
+    totalSetelahVoucher = Math.max(0, total - voucherValue);
+  }
+
+  cartTotalEl.innerHTML = `
+    Subtotal: ${rupiah(total)}<br>
+    ${voucherUsed ? `<span style="color:green">🎁 Voucher: -${rupiah(voucherValue)}</span><br>` : ''}
+    <b>Total: ${rupiah(totalSetelahVoucher)}</b>
+  `;
   saveCart();
   renderCartCount();
 }
 
+/* ===== UBAH JUMLAH ===== */
 function changeQty(i, d){
   cart[i].qty += d;
   if(cart[i].qty <= 0) cart.splice(i,1);
   renderCartPanel();
 }
 document.getElementById('clearCart').addEventListener('click', ()=>{
-  if(confirm('Kosongkan keranjang?')){ cart=[]; saveCart(); renderCartPanel(); cartPanel.style.display='none'; }
+  if(confirm('Kosongkan keranjang?')){ cart=[]; voucherUsed=false; voucherValue=0; saveCart(); renderCartPanel(); cartPanel.style.display='none'; }
 });
 
 /* ===== CHECKOUT & ONGKIR ===== */
@@ -385,11 +413,7 @@ function updateShippingBlock(){
 document.querySelectorAll('input[name="shipping"]').forEach(r => r.addEventListener('change', updateShippingBlock));
 updateShippingBlock();
 
-/* ongkir rules:
-   - Shopee: base 8.000 for <=5 km, tambahan 1.500 per km (rounded up)
-   - Gojek: base 9.000 for <=5 km, tambahan 1.500 per km
-   - Grab: base 9.000 for <=5 km, tambahan 1.500 per km
-*/
+/* ongkir rules */
 function kalkulasiOngkir(service, jarak){
   let base = 0, per = 0;
   if(service === 'Shopee'){ base = 8000; per = 1500; }
@@ -422,159 +446,6 @@ checkoutForm.addEventListener('submit', (e) => {
   const pay = document.querySelector('input[name="paymentMethod"]:checked')?.value || 'Transfer';
   const ship = document.querySelector('input[name="shipping"]:checked')?.value || 'Shopee';
   let subtotal = 0;
-  let pesan = 'Halo Teh Desi\\n\\nSaya mau pesan:\\n';
-  cart.forEach(it => {
-    const sub = it.price * it.qty;
-    subtotal += sub;
-    pesan += `- ${it.name} x${it.qty} = Rp${sub.toLocaleString('id-ID')}\\n`;
-  });
-  let jarVal = parseFloat(document.getElementById('jarakInputModal')?.value || 0);
-  let ongkir = 0;
-  if(ship !== 'Pickup'){
-    if(isNaN(jarVal) || jarVal <= 0){ alert('Masukkan jarak (km) untuk estimasi ongkir.'); return; }
-    ongkir = kalkulasiOngkir(ship, jarVal);
-  }
-  pesan += `\\nMetode Pengiriman: ${ship}\\nEstimasi Ongkir: Rp${ongkir.toLocaleString('id-ID')}\\nMetode Pembayaran: ${pay}\\nTotal: Rp${(subtotal + ongkir).toLocaleString('id-ID')}\\n\\nAlamat / Catatan: `;
-  const waUrl = 'https://wa.me/6281212629516?text=' + encodeURIComponent(pesan);
-  window.open(waUrl, '_blank');
-
-  // clear cart & close modal
-  cart = [];
-  saveCart();
-  renderCartPanel();
-  modal.style.display = 'none';
-});
-
-/* init render */
-renderCartPanel();
-
-/* ===== FITUR VOUCHER 🎁 DENGAN ANIMASI ===== */
-
-// Tambahkan elemen tombol kado
-const giftBtn = document.createElement('button');
-giftBtn.innerHTML = '🎁<br><span style="font-size:13px">Buka Kado</span>';
-giftBtn.style.cssText = `
-  position:fixed;right:18px;bottom:100px;
-  background:#ff7043;color:#fff;border:none;
-  padding:12px 14px;border-radius:16px;
-  box-shadow:0 6px 18px rgba(0,0,0,0.18);
-  cursor:pointer;font-weight:700;z-index:999;
-  text-align:center;transition:transform 0.2s;
-`;
-document.body.appendChild(giftBtn);
-
-let voucherValue = 0;
-let voucherUsed = false;
-
-// efek confetti ringan
-function confettiEffect() {
-  const count = 25;
-  for(let i=0;i<count;i++){
-    const conf = document.createElement('div');
-    conf.style.position = 'fixed';
-    conf.style.width = '6px';
-    conf.style.height = '6px';
-    conf.style.borderRadius = '50%';
-    conf.style.background = ['#ff7043','#ffca28','#66bb6a','#42a5f5'][Math.floor(Math.random()*4)];
-    conf.style.top = (giftBtn.getBoundingClientRect().top + 15) + 'px';
-    conf.style.left = (giftBtn.getBoundingClientRect().left + 30) + 'px';
-    conf.style.zIndex = 10000;
-    conf.style.opacity = 1;
-    document.body.appendChild(conf);
-
-    const angle = Math.random() * 2 * Math.PI;
-    const distance = 60 + Math.random() * 60;
-    const dx = Math.cos(angle) * distance;
-    const dy = Math.sin(angle) * distance;
-
-    conf.animate([
-      { transform:`translate(0,0)`, opacity:1 },
-      { transform:`translate(${dx}px,${dy}px)`, opacity:0 }
-    ], { duration:800 + Math.random()*400, easing:'ease-out' });
-
-    setTimeout(()=>conf.remove(), 1000);
-  }
-}
-
-giftBtn.addEventListener('click', () => {
-  if(voucherUsed){
-    alert('🎫 Voucher sudah digunakan di transaksi ini.');
-    return;
-  }
-
-  // efek gemetar kecil
-  giftBtn.style.transform = 'rotate(-8deg)';
-  setTimeout(()=>giftBtn.style.transform='rotate(8deg)',100);
-  setTimeout(()=>giftBtn.style.transform='rotate(0)',200);
-
-  confettiEffect(); // keluarkan confetti
-
-  // cek total belanja
-  const totalBelanja = cart.reduce((s,i)=>s+(i.price*i.qty),0);
-  if(totalBelanja > 50000){
-    voucherValue = 5000;
-  } else {
-    const opsi = [1000,1500,2000,2500,3000,3500];
-    voucherValue = opsi[Math.floor(Math.random()*opsi.length)];
-  }
-
-  setTimeout(()=>{
-    alert(`🎉 Selamat! Kamu dapat voucher potongan Rp${voucherValue.toLocaleString('id-ID')} untuk pembelian kali ini!`);
-    voucherUsed = true;
-    renderCartPanel();
-  }, 400);
-});
-
-// tampilkan potongan di ringkasan keranjang
-function renderCartPanel(){
-  cartItemsEl.innerHTML = '';
-  if(cart.length === 0){
-    cartItemsEl.innerHTML = '<p style="color:#666">Keranjang kosong.</p>'; 
-    cartTotalEl.textContent = 'Total: Rp0';
-    renderCartCount(); 
-    return;
-  }
-
-  let total = 0;
-  cart.forEach((it, idx) => {
-    const sub = it.price * it.qty;
-    total += sub;
-    const node = document.createElement('div');
-    node.className = 'cart-item';
-    node.innerHTML = `
-      <div class="name">${it.name}</div>
-      <div style="min-width:120px;text-align:right">
-        <div style="font-weight:700">${rupiah(it.price)}</div>
-        <div style="margin-top:6px;display:flex;gap:6px;justify-content:flex-end">
-          <button class="small-btn" onclick="changeQty(${idx},-1)">-</button>
-          <span style="padding:0 8px">${it.qty}</span>
-          <button class="small-btn" onclick="changeQty(${idx},1)">+</button>
-        </div>
-      </div>
-    `;
-    cartItemsEl.appendChild(node);
-  });
-
-  let totalSetelahVoucher = total;
-  if(voucherUsed && voucherValue > 0){
-    totalSetelahVoucher = Math.max(0, total - voucherValue);
-  }
-
-  cartTotalEl.innerHTML = `
-    Subtotal: ${rupiah(total)}<br>
-    ${voucherUsed ? `<span style="color:green">🎁 Voucher: -${rupiah(voucherValue)}</span><br>` : ''}
-    <b>Total: ${rupiah(totalSetelahVoucher)}</b>
-  `;
-  saveCart();
-  renderCartCount();
-}
-
-// sertakan voucher di WhatsApp order
-checkoutForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const pay = document.querySelector('input[name="paymentMethod"]:checked')?.value || 'Transfer';
-  const ship = document.querySelector('input[name="shipping"]:checked')?.value || 'Shopee';
-  let subtotal = 0;
   let pesan = 'Halo Teh Desi\n\nSaya mau pesan:\n';
   cart.forEach(it => {
     const sub = it.price * it.qty;
@@ -600,6 +471,69 @@ checkoutForm.addEventListener('submit', (e) => {
   renderCartPanel();
   modal.style.display = 'none';
 });
+
+/* ===== VOUCHER (tombol kado) ===== */
+const giftBtn = document.getElementById('giftBtn');
+
+function confettiEffect() {
+  const count = 20;
+  for(let i=0;i<count;i++){
+    const conf = document.createElement('div');
+    conf.style.position = 'fixed';
+    conf.style.width = '7px';
+    conf.style.height = '7px';
+    conf.style.borderRadius = '50%';
+    conf.style.background = ['#ff7043','#ffca28','#66bb6a','#42a5f5'][Math.floor(Math.random()*4)];
+    conf.style.top = (giftBtn.getBoundingClientRect().top + 10) + 'px';
+    conf.style.left = (giftBtn.getBoundingClientRect().left + 10) + 'px';
+    conf.style.zIndex = 10000;
+    conf.style.opacity = 1;
+    document.body.appendChild(conf);
+
+    const angle = Math.random() * 2 * Math.PI;
+    const distance = 40 + Math.random() * 80;
+    const dx = Math.cos(angle) * distance;
+    const dy = Math.sin(angle) * distance;
+
+    conf.animate([
+      { transform:`translate(0,0)`, opacity:1 },
+      { transform:`translate(${dx}px,${dy}px)`, opacity:0 }
+    ], { duration:800 + Math.random()*600, easing:'ease-out' });
+
+    setTimeout(()=>conf.remove(), 1400);
+  }
+}
+
+giftBtn.addEventListener('click', () => {
+  if(voucherUsed){
+    alert('🎫 Voucher sudah didapatkan untuk transaksi ini.');
+    return;
+  }
+
+  // animasi kecil
+  giftBtn.style.transform = 'scale(0.96)';
+  setTimeout(()=>giftBtn.style.transform='scale(1)', 120);
+  confettiEffect();
+
+  // cek total belanja
+  const totalBelanja = cart.reduce((s,i)=>s+(i.price*i.qty),0);
+  if(totalBelanja > 50000){
+    voucherValue = 5000;
+  } else {
+    const opsi = [1000,1500,2000,2500,3000,3500];
+    voucherValue = opsi[Math.floor(Math.random()*opsi.length)];
+  }
+
+  setTimeout(()=>{
+    alert(`🎉 Selamat! Kamu mendapat voucher potongan Rp${voucherValue.toLocaleString('id-ID')}.\nVoucher otomatis digunakan pada checkout saat ini.`);
+    voucherUsed = true;
+    renderCartPanel();
+  }, 220);
+});
+
+/* init render */
+renderCartPanel();
 </script>
+
 </body>
 </html>
