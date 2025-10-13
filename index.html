@@ -91,6 +91,49 @@
       .gift-btn{right:12px; top: 100px}
       .form-row {flex-direction:column;align-items:stretch}
     }
+    .gift-popup {
+  display:none;
+  position:fixed;
+  left:0; top:0; width:100%; height:100%;
+  background:rgba(0,0,0,0.55);
+  z-index:10000;
+  animation:fadeIn 0.3s ease;
+}
+.gift-popup-content {
+  background:#fff;
+  border-radius:16px;
+  padding:24px 18px;
+  text-align:center;
+  width:90%;
+  max-width:320px;
+  margin:12% auto;
+  box-shadow:0 10px 30px rgba(0,0,0,0.25);
+  animation:popIn 0.4s ease;
+}
+.gift-popup-content h2 { color:#ff7043; margin-bottom:8px }
+.gift-value {
+  font-size:2rem;
+  font-weight:800;
+  color:#16a34a;
+  margin-top:12px;
+}
+.gift-close {
+  position:absolute;
+  right:22px;
+  top:16px;
+  font-size:26px;
+  cursor:pointer;
+  color:#888;
+}
+@keyframes popIn {
+  0%{transform:scale(0.7);opacity:0}
+  100%{transform:scale(1);opacity:1}
+}
+@keyframes fadeIn {
+  0%{opacity:0}
+  100%{opacity:1}
+}
+
   </style>
 </head>
 <body>
@@ -129,6 +172,16 @@
   <span style="font-size:18px">🎁</span>
   <span style="font-size:13px;line-height:1">Buka Kado</span>
 </button>
+
+  <!-- Popup Kado -->
+<div id="giftPopup" class="gift-popup">
+  <div class="gift-popup-content">
+    <span id="closeGift" class="gift-close">&times;</span>
+    <h2>🎉 Selamat!</h2>
+    <p id="giftText">Kamu mendapatkan voucher spesial 🎁</p>
+    <div class="gift-value" id="giftValue">Rp0</div>
+  </div>
+</div>
 
 <!-- Cart panel -->
 <div class="cart-panel" id="cartPanel" aria-hidden="true">
@@ -510,12 +563,11 @@ giftBtn.addEventListener('click', () => {
     return;
   }
 
-  // animasi kecil
+  // animasi kecil tombol & confetti
   giftBtn.style.transform = 'scale(0.96)';
   setTimeout(()=>giftBtn.style.transform='scale(1)', 120);
   confettiEffect();
 
-  // cek total belanja
   const totalBelanja = cart.reduce((s,i)=>s+(i.price*i.qty),0);
   if(totalBelanja > 50000){
     voucherValue = 5000;
@@ -524,12 +576,22 @@ giftBtn.addEventListener('click', () => {
     voucherValue = opsi[Math.floor(Math.random()*opsi.length)];
   }
 
-  setTimeout(()=>{
-    alert(`🎉 Selamat! Kamu mendapat voucher potongan Rp${voucherValue.toLocaleString('id-ID')}.\nVoucher otomatis digunakan pada checkout saat ini.`);
-    voucherUsed = true;
-    renderCartPanel();
-  }, 220);
+  // tampilkan popup
+  document.getElementById('giftValue').textContent = 'Rp' + voucherValue.toLocaleString('id-ID');
+  document.getElementById('giftPopup').style.display = 'block';
+
+  voucherUsed = true;
+  renderCartPanel();
+
+  // otomatis tutup popup setelah 3 detik
+  setTimeout(()=>document.getElementById('giftPopup').style.display='none', 3000);
 });
+
+// tombol close popup
+document.getElementById('closeGift').addEventListener('click', ()=>{
+  document.getElementById('giftPopup').style.display='none';
+});
+
 
 /* init render */
 renderCartPanel();
