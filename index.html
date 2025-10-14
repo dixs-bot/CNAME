@@ -133,6 +133,31 @@
   0%{opacity:0}
   100%{opacity:1}
 }
+.event-btn {
+  position: fixed;
+  right: 18px;
+  top: 170px; /* letakkan di bawah tombol kado */
+  background: #ff8c42;
+  color: #fff;
+  border: none;
+  padding: 10px 12px;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+  cursor: pointer;
+  font-weight: 800;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: 0.3s;
+}
+.event-btn:hover {
+  background: #ff7043;
+  transform: scale(1.05);
+}
+@media(max-width:520px){
+  .event-btn{ right:12px; top:160px; }
+}
 
   </style>
 </head>
@@ -177,6 +202,12 @@
 <button id="giftBtn" class="gift-btn" title="Buka Kado — dapatkan voucher!">
   <span style="font-size:18px">🎁</span>
   <span style="font-size:13px;line-height:1">Buka Kado</span>
+</button>
+
+  <!-- Tombol Pemesanan Acara -->
+<button id="eventBtn" class="event-btn" title="Pesan untuk Acara / Catering">
+  <span style="font-size:18px">📅</span>
+  <span style="font-size:13px;line-height:1">Pesan Acara</span>
 </button>
 
   <!-- Popup Kado -->
@@ -759,6 +790,15 @@ function tampilkanUlasan(animasiBaru = false) {
 
 // Saat halaman dibuka, tampilkan semua ulasan
 tampilkanUlasan();
+// ===== Tombol Pesan Acara (scroll ke form) =====
+document.getElementById('eventBtn').addEventListener('click', ()=>{
+  const formSection = document.getElementById('eventForm');
+  if(formSection){
+    formSection.scrollIntoView({ behavior:'smooth' });
+  } else {
+    alert('⚠️ Form pemesanan acara belum tersedia di halaman.');
+  }
+});
 </script>
 
 
