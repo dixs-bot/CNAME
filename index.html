@@ -66,6 +66,32 @@
     .ship-pickup{background:#6b7280;color:#fff}
     .footer-note{font-size:0.95rem;color:var(--muted);margin-top:10px}
 
+   .event-btn {
+  position: fixed;
+  right: 18px;
+  top: 170px; /* letakkan di bawah tombol kado */
+  background: #ff8c42;
+  color: #fff;
+  border: none;
+  padding: 10px 12px;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+  cursor: pointer;
+  font-weight: 800;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: 0.3s;
+}
+.event-btn:hover {
+  background: #ff7043;
+  transform: scale(1.05);
+}
+@media(max-width:520px){
+  .event-btn{ right:12px; top:160px; }
+}
+
     /* tombol kado: posisikan tepat di bawah cart-float (top: 110px keeps it under the cart button) */
     .gift-btn {
       position: fixed;
@@ -132,31 +158,6 @@
 @keyframes fadeIn {
   0%{opacity:0}
   100%{opacity:1}
-}
-.event-btn {
-  position: fixed;
-  right: 18px;
-  top: 170px; /* letakkan di bawah tombol kado */
-  background: #ff8c42;
-  color: #fff;
-  border: none;
-  padding: 10px 12px;
-  border-radius: 16px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.18);
-  cursor: pointer;
-  font-weight: 800;
-  z-index: 999;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: 0.3s;
-}
-.event-btn:hover {
-  background: #ff7043;
-  transform: scale(1.05);
-}
-@media(max-width:520px){
-  .event-btn{ right:12px; top:160px; }
 }
 
   </style>
