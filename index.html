@@ -695,6 +695,107 @@ document.getElementById('closeGift').addEventListener('click', ()=>{
 /* init render */
 renderCartPanel();
 </script>
+  <!-- ====== Form Pemesanan Acara / Catering ====== -->
+<section id="eventForm" style="margin-top:60px;padding:40px 20px;background:var(--bg);border-top:4px solid var(--primary);">
+  <h2 style="text-align:center;color:var(--primary);font-size:1.6rem;margin-bottom:20px;">
+    🎉 Pemesanan Acara & Catering
+  </h2>
+
+  <div style="max-width:600px;margin:auto;background:var(--card);padding:24px;border-radius:16px;
+              box-shadow:0 6px 20px rgba(0,0,0,0.08);">
+    <form id="formAcara" style="display:flex;flex-direction:column;gap:14px;">
+      <input type="text" id="namaAcara" placeholder="Nama Pemesan / Penanggung Jawab" required
+             style="padding:10px;border-radius:10px;border:1px solid #ddd;font-size:15px;">
+      <input type="text" id="alamatAcara" placeholder="Alamat Lengkap Acara" required
+             style="padding:10px;border-radius:10px;border:1px solid #ddd;font-size:15px;">
+      <input type="text" id="namaEvent" placeholder="Jenis Acara (Ulang Tahun, Rapat, Pernikahan, dll)" required
+             style="padding:10px;border-radius:10px;border:1px solid #ddd;font-size:15px;">
+      <input type="number" id="porsi" placeholder="Jumlah Porsi (min 10)" required min="10"
+             style="padding:10px;border-radius:10px;border:1px solid #ddd;font-size:15px;">
+      
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <div style="flex:1">
+          <label style="font-weight:600;color:var(--primary);font-size:14px;">Tanggal Acara</label>
+          <input type="date" id="tanggalAcara" required
+                 style="width:100%;padding:10px;border-radius:10px;border:1px solid #ddd;font-size:15px;">
+        </div>
+        <div style="flex:1">
+          <label style="font-weight:600;color:var(--primary);font-size:14px;">Jam</label>
+          <input type="time" id="jamAcara" required
+                 style="width:100%;padding:10px;border-radius:10px;border:1px solid #ddd;font-size:15px;">
+        </div>
+      </div>
+
+      <select id="menuAcara" required
+              style="padding:10px;border-radius:10px;border:1px solid #ddd;font-size:15px;">
+        <option value="">Pilih Paket Menu</option>
+        <option value="Paket Hemat 1">Paket Hemat 1</option>
+        <option value="Paket Hemat 2">Paket Hemat 2</option>
+        <option value="Paket Hemat 3">Paket Hemat 3</option>
+        <option value="Seblak Komplit">Seblak Komplit</option>
+        <option value="Cilok Goang Tulang">Cilok Goang Tulang</option>
+        <option value="Custom / Campuran">Custom / Campuran</option>
+      </select>
+
+      <textarea id="catatanAcara" placeholder="Catatan tambahan (opsional)..."
+                style="padding:10px;border-radius:10px;border:1px solid #ddd;font-size:15px;min-height:80px;"></textarea>
+
+      <button type="submit"
+              style="background:var(--primary);color:white;border:none;padding:12px;border-radius:10px;
+                     font-size:16px;font-weight:bold;cursor:pointer;transition:0.3s;">
+        Kirim Pemesanan Acara via WhatsApp
+      </button>
+
+      <p style="color:var(--muted);text-align:center;font-size:0.9rem;margin-top:6px;">
+        ⏰ Pemesanan minimal <b>2 hari sebelum acara</b>. Kami siap bantu untuk acara spesialmu!
+      </p>
+    </form>
+  </div>
+</section>
+
+<script>
+const formAcara = document.getElementById('formAcara');
+formAcara.addEventListener('submit', e => {
+  e.preventDefault();
+
+  const nama = document.getElementById('namaAcara').value.trim();
+  const alamat = document.getElementById('alamatAcara').value.trim();
+  const namaEvent = document.getElementById('namaEvent').value.trim();
+  const porsi = document.getElementById('porsi').value.trim();
+  const menu = document.getElementById('menuAcara').value.trim();
+  const tanggal = document.getElementById('tanggalAcara').value;
+  const jam = document.getElementById('jamAcara').value;
+  const catatan = document.getElementById('catatanAcara').value.trim();
+
+  if(!tanggal) return alert('Tanggal acara belum diisi.');
+
+  const eventDate = new Date(tanggal);
+  const now = new Date();
+  const selisih = (eventDate - now) / (1000*60*60*24);
+
+  if (selisih < 2) {
+    alert('⚠️ Pemesanan minimal 2 hari sebelum acara. Silakan pilih tanggal yang lebih jauh.');
+    return;
+  }
+
+  const pesan = `
+🎉 *Pemesanan Acara / Catering*
+👤 Nama: ${nama}
+🏠 Alamat: ${alamat}
+🎈 Acara: ${namaEvent}
+🍱 Menu: ${menu}
+👥 Jumlah Porsi: ${porsi}
+🗓️ Tanggal: ${tanggal}
+🕓 Jam: ${jam}
+📝 Catatan: ${catatan || '-'}
+`;
+
+  const waUrl = "https://wa.me/6281212629516?text=" + encodeURIComponent(pesan);
+  window.open(waUrl, '_blank');
+  formAcara.reset();
+});
+</script>
+
   <!-- Bagian Komentar & Rating Elegan dengan Animasi -->
 <section id="ulasan" style="margin-top:60px;padding:40px 20px;background:linear-gradient(180deg,#fff,#fff6f6);border-top:4px solid var(--primary);">
   <h2 style="text-align:center;color:var(--primary);font-size:1.6rem;margin-bottom:20px;">
