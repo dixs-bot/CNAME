@@ -228,7 +228,13 @@
           <label style="min-width:150px;font-weight:600">Masukkan jarak (km)</label>
           <input id="jarakInputModal" type="number" min="0" placeholder="contoh: 6">
           <button type="button" id="btnHitungModal" class="small-btn">Hitung Ongkir</button>
-        </div>
+<button type="button" id="btnLokasi" class="small-btn" style="background:#00796b">Deteksi Lokasi Saya 📍</button>
+<a href="https://www.google.com/maps/dir/?api=1&destination=-6.878372,107.542569&travelmode=driving"
+   target="_blank"
+   style="display:inline-block;margin-top:8px;font-weight:700;color:var(--primary);text-decoration:none">
+   🌍 Cek jarak & estimasi di Google Maps
+</a>
+  </div>
         <p id="hasilOngkirModal" style="margin-top:8px;font-weight:800"></p>
       </div>
 
@@ -470,6 +476,32 @@ function updateShippingBlock(){
 }
 document.querySelectorAll('input[name="shipping"]').forEach(r => r.addEventListener('change', updateShippingBlock));
 updateShippingBlock();
+  // === GEOLOCATION OTOMATIS ===
+document.addEventListener('click', function(e){
+  if(e.target && e.target.id === 'btnLokasi'){
+    if(navigator.geolocation){
+      navigator.geolocation.getCurrentPosition(function(pos){
+        const lat = pos.coords.latitude;
+        const lon = pos.coords.longitude;
+        const tokoLat = -6.87252; // Ganti dengan latitude toko kamu
+        const tokoLon = 107.53208; // Ganti dengan longitude toko kamu
+        const R = 6371; // radius bumi (km)
+        const dLat = (tokoLat - lat) * Math.PI / 180;
+        const dLon = (tokoLon - lon) * Math.PI / 180;
+        const a = Math.sin(dLat/2)**2 + Math.cos(lat*Math.PI/180)*Math.cos(tokoLat*Math.PI/180)*Math.sin(dLon/2)**2;
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        const jarak = (R * c).toFixed(2);
+        document.getElementById('jarakInputModal').value = jarak;
+        alert('✅ Lokasi terdeteksi! Jarak kamu sekitar ' + jarak + ' km dari Cilok Goang Teh Desi.');
+      }, function(){
+        alert('⚠️ Gagal mendeteksi lokasi. Pastikan izin lokasi diaktifkan.');
+      });
+    } else {
+      alert('Browser kamu tidak mendukung deteksi lokasi otomatis.');
+    }
+  }
+});
+
 
 /* ongkir rules */
 function kalkulasiOngkir(service, jarak){
