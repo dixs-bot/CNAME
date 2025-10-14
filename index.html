@@ -476,62 +476,116 @@ function updateShippingBlock(){
 }
 document.querySelectorAll('input[name="shipping"]').forEach(r => r.addEventListener('change', updateShippingBlock));
 updateShippingBlock();
- function updateShippingBlock(){
+<script>
+function updateShippingBlock() {
   const selected = document.querySelector('input[name="shipping"]:checked')?.value;
   const block = document.getElementById('shippingBlock');
-  if(selected === 'Pickup'){
+
+  if (selected === 'Pickup') {
     block.innerHTML = '<p style="font-weight:700">🏠 Ambil di Tempat — Ongkir: Rp0</p>';
     hasilOngkirModal.textContent = '';
     return;
   }
+
   block.innerHTML = `
     <div class="form-row">
       <label style="min-width:150px;font-weight:600">Masukkan jarak (km)</label>
       <input id="jarakInputModal" type="number" min="0" placeholder="contoh: 6">
       <button type="button" id="btnHitungModal" class="small-btn">Hitung Ongkir</button>
-      <button type="button" id="btnLokasi" class="small-btn" style="background:#00796b">Deteksi Lokasi Saya 📍</button>
+      <button type="button" id="btnLokasi" class="small-btn" style="background:#00796b">📍 Deteksi Lokasi Saya</button>
     </div>
+
+    <div id="loadingText" style="display:none;margin-top:10px;text-align:center;font-weight:600;color:#00796b">
+      <div class="spinner" style="
+        display:inline-block;
+        width:22px;height:22px;
+        border:3px solid #b2dfdb;
+        border-top:3px solid #00796b;
+        border-radius:50%;
+        animation:spin 0.9s linear infinite;
+        vertical-align:middle;
+      "></div>
+      <span style="margin-left:8px">Mendeteksi lokasi... mohon tunggu.</span>
+    </div>
+
     <a href="https://www.google.com/maps/dir/?api=1&destination=-6.878372,107.542569&travelmode=driving"
        target="_blank"
-       style="display:inline-block;margin-top:8px;font-weight:700;color:var(--primary);text-decoration:none">
+       style="display:inline-block;margin-top:10px;font-weight:700;color:var(--primary);text-decoration:none">
        🌍 Cek jarak & estimasi di Google Maps
     </a>
-    <p id="hasilOngkirModal" style="margin-top:8px;font-weight:800"></p>
+
+    <p id="hasilOngkirModal" style="margin-top:10px;font-weight:800"></p>
+
+    <style>
+      @keyframes spin { 
+        0% { transform: rotate(0deg); } 
+        100% { transform: rotate(360deg); } 
+      }
+    </style>
   `;
 
-  document.getElementById('btnHitungModal').addEventListener('click', ()=> {
+  // Hitung Ongkir manual
+  document.getElementById('btnHitungModal').addEventListener('click', () => {
     const jar = parseFloat(document.getElementById('jarakInputModal').value);
-    if(isNaN(jar) || jar <= 0){ document.getElementById('hasilOngkirModal').textContent = '⚠️ Masukkan jarak yang benar.'; return; }
+    if (isNaN(jar) || jar <= 0) {
+      document.getElementById('hasilOngkirModal').textContent = '⚠️ Masukkan jarak yang benar.';
+      return;
+    }
     const service = document.querySelector('input[name="shipping"]:checked').value;
     const ong = kalkulasiOngkir(service, jar);
     const link = linkByService(service);
-    document.getElementById('hasilOngkirModal').innerHTML = `🚚 Estimasi ongkir (${service}): <b>${rupiah(ong)}</b><br><a id="openAppLink" href="${link}" target="_blank" style="font-weight:700;color:var(--primary)">➡️ Buka di aplikasi ${service}</a>`;
+    document.getElementById('hasilOngkirModal').innerHTML =
+      `🚚 Estimasi ongkir (${service}): <b>${rupiah(ong)}</b><br>
+       <a id="openAppLink" href="${link}" target="_blank" style="font-weight:700;color:var(--primary)">
+       ➡️ Buka di aplikasi ${service}</a>`;
   });
 
-  // === tombol deteksi lokasi otomatis ===
-  document.getElementById('btnLokasi').addEventListener('click', ()=>{
-    if(navigator.geolocation){
-      navigator.geolocation.getCurrentPosition(function(pos){
-        const lat = pos.coords.latitude;
-        const lon = pos.coords.longitude;
-        const tokoLat = -6.878372;  // ganti sesuai lokasi toko
-        const tokoLon = 107.542569;
-        const R = 6371;
-        const dLat = (tokoLat - lat) * Math.PI / 180;
-        const dLon = (tokoLon - lon) * Math.PI / 180;
-        const a = Math.sin(dLat/2)**2 + Math.cos(lat*Math.PI/180)*Math.cos(tokoLat*Math.PI/180)*Math.sin(dLon/2)**2;
-        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-        const jarak = (R * c).toFixed(2);
-        document.getElementById('jarakInputModal').value = jarak;
-        alert('✅ Lokasi terdeteksi! Jarak kamu sekitar ' + jarak + ' km dari Cilok Goang Teh Desi.');
-      }, function(){
-        alert('⚠️ Gagal mendeteksi lokasi. Pastikan izin lokasi diaktifkan.');
-      });
+  // Tombol Deteksi Lokasi
+  document.getElementById('btnLokasi').addEventListener('click', () => {
+    const loading = document.getElementById('loadingText');
+    loading.style.display = 'block';
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        function (pos) {
+          loading.style.display = 'none';
+          const lat = pos.coords.latitude;
+          const lon = pos.coords.longitude;
+          const tokoLat = -6.878372; // Lokasi Cilok Goang Teh Desi
+          const tokoLon = 107.542569;
+
+          // Rumus jarak (Haversine)
+          const R = 6371;
+          const dLat = (tokoLat - lat) * Math.PI / 180;
+          const dLon = (tokoLon - lon) * Math.PI / 180;
+          const a =
+            Math.sin(dLat / 2) ** 2 +
+            Math.cos(lat * Math.PI / 180) *
+            Math.cos(tokoLat * Math.PI / 180) *
+            Math.sin(dLon / 2) ** 2;
+          const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+          const jarak = (R * c).toFixed(2);
+
+          document.getElementById('jarakInputModal').value = jarak;
+          alert('✅ Lokasi berhasil dideteksi!\nPerkiraan jarak kamu: ' + jarak + ' km dari Cilok Goang Teh Desi.');
+        },
+        function () {
+          loading.style.display = 'none';
+          alert('⚠️ Gagal mendeteksi lokasi.\nPastikan izin lokasi aktif di browser kamu.');
+        }
+      );
     } else {
-      alert('Browser kamu tidak mendukung deteksi lokasi otomatis.');
+      loading.style.display = 'none';
+      alert('⚠️ Browser kamu tidak mendukung deteksi lokasi otomatis.');
     }
   });
 }
+
+// Jalankan ulang setiap kali user ganti layanan pengiriman
+document.querySelectorAll('input[name="shipping"]').forEach(r =>
+  r.addEventListener('change', updateShippingBlock)
+);
+</script>
 
 /* ongkir rules */
 function kalkulasiOngkir(service, jarak){
