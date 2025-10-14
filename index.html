@@ -229,6 +229,31 @@
   <div class="cart-actions">
     <button id="clearCart" class="btn-clear">Kosongkan</button>
     <button id="checkoutBtn" class="btn-checkout">Checkout</button>
+ 
+    <script>
+document.getElementById("checkoutButton").addEventListener("click", async function(e) {
+  e.preventDefault();
+
+  const nama = document.querySelector("#nama").value;
+  const alamat = document.querySelector("#alamat").value;
+  const menu = document.querySelector("#menu").value;
+  const jumlah = document.querySelector("#jumlah").value;
+  const jam = document.querySelector("#jam").value;
+  const tanggal = document.querySelector("#tanggal").value;
+
+  await fetch("http://localhost:3000/api/receipts", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      nama, alamat, menu, jumlah, jam, tanggal,
+      status: "menunggu konfirmasi"
+    })
+  });
+
+  alert("✅ Pesanan berhasil dikirim ke toko!");
+});
+</script>
+
   </div>
   <div style="margin-top:12px;text-align:center">
     <p style="margin:6px 0">Atau pesan langsung via:</p>
